@@ -1,0 +1,901 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cs109a\_hw3\_209\_joshua\_feldman}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{ CS109A Introduction to Data
+Science:}\label{cs109a-introduction-to-data-science}
+
+\subsection{Homework 3 AC 209 : From MLE to
+AIC}\label{homework-3-ac-209-from-mle-to-aic}
+
+\textbf{Harvard University} \textbf{Fall 2018} \textbf{Instructors}:
+Pavlos Protopapas, Kevin Rader
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}RUN THIS CELL }
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+         \PY{n}{styles} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/Harvard\PYZhy{}IACS/2018\PYZhy{}CS109A/master/content/styles/cs109.css}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+         \PY{n}{HTML}\PY{p}{(}\PY{n}{styles}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        gaierror                                  Traceback (most recent call last)
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connection.py in \_new\_conn(self)
+        170             conn = connection.create\_connection(
+    --> 171                 (self.\_dns\_host, self.port), self.timeout, **extra\_kw)
+        172 
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/util/connection.py in create\_connection(address, timeout, source\_address, socket\_options)
+         55 
+    ---> 56     for res in socket.getaddrinfo(host, port, family, socket.SOCK\_STREAM):
+         57         af, socktype, proto, canonname, sa = res
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/socket.py in getaddrinfo(host, port, family, type, proto, flags)
+        744     addrlist = []
+    --> 745     for res in \_socket.getaddrinfo(host, port, family, type, proto, flags):
+        746         af, socktype, proto, canonname, sa = res
+
+
+        gaierror: [Errno 8] nodename nor servname provided, or not known
+
+        
+    During handling of the above exception, another exception occurred:
+
+
+        NewConnectionError                        Traceback (most recent call last)
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connectionpool.py in urlopen(self, method, url, body, headers, retries, redirect, assert\_same\_host, timeout, pool\_timeout, release\_conn, chunked, body\_pos, **response\_kw)
+        599                                                   body=body, headers=headers,
+    --> 600                                                   chunked=chunked)
+        601 
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connectionpool.py in \_make\_request(self, conn, method, url, timeout, chunked, **httplib\_request\_kw)
+        342         try:
+    --> 343             self.\_validate\_conn(conn)
+        344         except (SocketTimeout, BaseSSLError) as e:
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connectionpool.py in \_validate\_conn(self, conn)
+        848         if not getattr(conn, 'sock', None):  \# AppEngine might not have  `.sock`
+    --> 849             conn.connect()
+        850 
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connection.py in connect(self)
+        313         \# Add certificate verification
+    --> 314         conn = self.\_new\_conn()
+        315 
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connection.py in \_new\_conn(self)
+        179             raise NewConnectionError(
+    --> 180                 self, "Failed to establish a new connection: \%s" \% e)
+        181 
+
+
+        NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x1c19484cc0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known
+
+        
+    During handling of the above exception, another exception occurred:
+
+
+        MaxRetryError                             Traceback (most recent call last)
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/requests/adapters.py in send(self, request, stream, timeout, verify, cert, proxies)
+        444                     retries=self.max\_retries,
+    --> 445                     timeout=timeout
+        446                 )
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/connectionpool.py in urlopen(self, method, url, body, headers, retries, redirect, assert\_same\_host, timeout, pool\_timeout, release\_conn, chunked, body\_pos, **response\_kw)
+        637             retries = retries.increment(method, url, error=e, \_pool=self,
+    --> 638                                         \_stacktrace=sys.exc\_info()[2])
+        639             retries.sleep()
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/urllib3/util/retry.py in increment(self, method, url, response, error, \_pool, \_stacktrace)
+        397         if new\_retry.is\_exhausted():
+    --> 398             raise MaxRetryError(\_pool, url, error or ResponseError(cause))
+        399 
+
+
+        MaxRetryError: HTTPSConnectionPool(host='raw.githubusercontent.com', port=443): Max retries exceeded with url: /Harvard-IACS/2018-CS109A/master/content/styles/cs109.css (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x1c19484cc0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known',))
+
+        
+    During handling of the above exception, another exception occurred:
+
+
+        ConnectionError                           Traceback (most recent call last)
+
+        <ipython-input-27-7b90700e881a> in <module>()
+          2 import requests
+          3 from IPython.core.display import HTML
+    ----> 4 styles = requests.get("https://raw.githubusercontent.com/Harvard-IACS/2018-CS109A/master/content/styles/cs109.css").text
+          5 HTML(styles)
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/requests/api.py in get(url, params, **kwargs)
+         70 
+         71     kwargs.setdefault('allow\_redirects', True)
+    ---> 72     return request('get', url, params=params, **kwargs)
+         73 
+         74 
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/requests/api.py in request(method, url, **kwargs)
+         56     \# cases, and look like a memory leak in others.
+         57     with sessions.Session() as session:
+    ---> 58         return session.request(method=method, url=url, **kwargs)
+         59 
+         60 
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/requests/sessions.py in request(self, method, url, params, data, headers, cookies, files, auth, timeout, allow\_redirects, proxies, hooks, stream, verify, cert, json)
+        510         \}
+        511         send\_kwargs.update(settings)
+    --> 512         resp = self.send(prep, **send\_kwargs)
+        513 
+        514         return resp
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/requests/sessions.py in send(self, request, **kwargs)
+        620 
+        621         \# Send the request
+    --> 622         r = adapter.send(request, **kwargs)
+        623 
+        624         \# Total elapsed time of the request (approximately)
+
+
+        \textasciitilde{}/anaconda3/envs/py36/lib/python3.6/site-packages/requests/adapters.py in send(self, request, stream, timeout, verify, cert, proxies)
+        511                 raise SSLError(e, request=request)
+        512 
+    --> 513             raise ConnectionError(e, request=request)
+        514 
+        515         except ClosedPoolError as e:
+
+
+        ConnectionError: HTTPSConnectionPool(host='raw.githubusercontent.com', port=443): Max retries exceeded with url: /Harvard-IACS/2018-CS109A/master/content/styles/cs109.css (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x1c19484cc0>: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known',))
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{t}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{minimize}
+         
+         \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{OLS}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+     Question 7: Student's t MLE
+
+\textbf{7.1} Fit a simple linear regression model using Maximum
+Likelihood Estimation on the data provided in
+\texttt{data/beerdata.csv}. Consider two statistical models the for
+noise: a) Normal and b) Student's \(\textit{t}\)-distribution with
+\(\nu=5\) and scale factor \(\sigma=\sqrt{3/5}\).
+
+\textbf{7.2} Compare the two models performances (visualize the
+prediction lines and estimate the KL divergence between the data and
+each model) and comment why it is perhaps appropriate to use the
+Student's t-distribution instead of the Normal.
+
+\textbf{Hints:} 1. Use the probability density function for the
+Student's t distribution with location \(t\), \(\nu\) degrees of freedom
+and scale factor \(\sigma\). 2. If the MLE regression coefficients
+cannot be derived analytically consider numerical methods. 3. For
+\emph{convenience}, you can use sklearn or statsmodel for the Normal
+case.
+
+    \subsubsection{Answers}\label{answers}
+
+\textbf{7.1 Fit a simple linear regression model using Maximum
+Likelihood Estimation on the data provided in
+\texttt{data/beerdata.csv}. Consider two statistical models the for
+noise: a) Normal and b) Student's \(\textit{t}\)-distribution with
+\(\nu=5\) and scale factor \(\sigma=\sqrt{3/5}\). }
+
+\emph{your answer here}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}Read and show the data}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{beer\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/beerdata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}           x         y
+         0  0.760083  9.616565
+         1  0.766794  8.652492
+         2  0.504173  7.653462
+         3  0.357411  7.984081
+         4  0.730932  9.080448
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Plot the data}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x vs. y in beer data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} Text(0.5,1,'x vs. y in beer data')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Generate the ordinary least squares model (OLS)}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{ols\PYZus{}model} \PY{o}{=} \PY{n}{OLS}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Plot the data along with OLS fit line}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{ols\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x vs. y in beer data with regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} Text(0.5,1,'x vs. y in beer data with regression')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} LET\PYZsq{}S MAKE THE REGRESSION MODEL WITH t\PYZhy{}Students distribution}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{k}{class} \PY{n+nc}{StudentRegression}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{df}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigma}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{sigma}\PY{p}{\PYZcb{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{def} \PY{n+nf}{get\PYZus{}params}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+             
+             \PY{k}{def} \PY{n+nf}{set\PYZus{}params}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{kwargs}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{v}
+                 
+             \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}           
+                 \PY{n}{logpdf} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{t}\PY{o}{.}\PY{n}{logpdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{neg\PYZus{}log\PYZus{}likelihood} \PY{o}{=} \PY{k}{lambda} \PY{n}{coef}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{logpdf}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{X}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{coef}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{}calculate coefficients}
+                 \PY{n}{coef\PYZus{}init} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{coef} \PY{o}{=} \PY{n}{minimize}\PY{p}{(}\PY{n}{neg\PYZus{}log\PYZus{}likelihood}\PY{p}{,} \PY{n}{coef\PYZus{}init}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nelder\PYZhy{}Mead}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coef}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{coef}\PY{o}{.}\PY{n}{x}
+         
+             \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{X\PYZus{}pred}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{x}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coef}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{def} \PY{n+nf}{score}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} your code}
+                 \PY{n}{SST} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{n}{SSE} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                 \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{SSE}\PY{o}{/}\PY{n}{SST}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{t\PYZus{}model} \PY{o}{=} \PY{n}{StudentRegression}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+         \PY{n}{t\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{t\PYZus{}model}\PY{o}{.}\PY{n}{params}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} \{'df': 5, 'sigma': 0.7745966692414834, 'coef': array([6.17291817, 4.7738314 ])\}
+\end{Verbatim}
+            
+    \textbf{7.2 Compare the two models performances (visualize the
+prediction lines and estimate the KL divergence between the data and
+each model) and comment why it is perhaps appropriate to use the
+Student's t-distribution instead of the Normal. }
+
+\emph{your answer here}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{t\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{label} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{T distribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{ols\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{label} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{normal distribution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x vs. y in beer data with normal and t regressions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{resid\PYZus{}t} \PY{o}{=} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{t\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{)}
+         \PY{n}{resid\PYZus{}norm} \PY{o}{=} \PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{ols\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{beer\PYZus{}df}\PY{o}{.}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{pdf\PYZus{}t} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{t}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{df} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{loc} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{/}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pdf\PYZus{}norm} \PY{o}{=} \PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{resid\PYZus{}norm}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KL divergence for normal distribution minus KL for t\PYZhy{}distribution:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{pdf\PYZus{}t}\PY{p}{(}\PY{n}{resid\PYZus{}t}\PY{p}{)}\PY{o}{/}\PY{n}{pdf\PYZus{}norm}\PY{p}{(}\PY{n}{resid\PYZus{}norm}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+KL divergence for normal distribution minus KL for t-distribution: 0.23090166134812778
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+Visually inspecting the plot above suggests that the t-distribution fits
+our data better. This is because the tails of t-distributions are larger
+so linear regressions that assume a t-distribution are less sensitive to
+outliers.
+
+To formalize this, consider the KL divergences. Let \(p_{data}\) be the
+empirical distribution estimating the data generating process,
+\(p_{norm}\) be the normal distribution we fit in our regression, and
+\(p_t\) be the t distribtion we also fit via regression.
+
+\[
+\text{D}(p_{data},p_{norm}) - \text{D}(p_{data},p_t) = \frac{1}{N}\sum_i\left(\frac{p_t(y_i)}{p_{norm}(y_i)}\right) > 0
+\]
+
+Hence, the KL divergence between our empirical distribution and the
+normal distribution is greater than the KL divergence between the
+empirical distribution and the t distribution. Assuming a t distribution
+for our data is less "surprising", meaning that it is a better fit
+
+     Question 8: Akaike Information Criterion (AIC)
+
+Perform a simple numerical experiment to understand and demonstrate the
+AIC by using the given \texttt{generate\_data} function to generate your
+data.
+
+\textbf{8.1} Generate data for different number of parameters \(k\), in
+the range 1 to 10. For each of the six models generate 1000 training and
+1000 testing datasets with each one containing \(n=50\) observations.
+
+\textbf{8.2} Use the training set to estimate the OLS coefficients and
+calculate the predicted values, \(\hat y_{tr}\), on the training set and
+the log-likelihood. Use the OLS coefficients to calculate the predicted
+values for the testing set, \(\hat y_{te}\), and the associated
+log-likelihood.
+
+\textbf{8.3} For each \(k\) compute the average and standard deviation
+of the log-likelihoods across the 1000 simulations. Plot the average
+log-likelihoods (with error bars) and the average AIC as function of
+\(k\), the number of parameters. What is the best \(k\) based on AIC?
+
+\textbf{8.4} Verify the results in 8.3 by plotting the average
+log-likelihoods for each of the training and testing datasets as a
+function of \(k\). What is the best \(k\) based on this plot?
+
+\textbf{Comment:} 1. The function "generate\_data" uses an interesting
+trick to generate data directly using the regression coefficients as
+proxies for the correlations with the response variable. It generates
+data from a Normal distribution, hence
+\(y_i \sim \mathcal{N}(\mu_i= 0.15 x_{1,i} - 0.4 x_{2,i},\sigma^2=1)\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}data}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{beta}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.15} \PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.4}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} N: The number of observations}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} k: The number of parameters}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} beta is the weights vector for the covariates x1, x2}
+             \PY{c+c1}{\PYZsh{}\PYZsh{}}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Make d\PYZus{}min be greater or equal to k}
+             \PY{n}{n\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{+}\PY{n+nb}{len}\PY{p}{(}\PY{n}{beta}\PY{p}{)}
+             \PY{k}{if} \PY{p}{(}\PY{n}{n\PYZus{}dim} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{n\PYZus{}dim} \PY{o}{=} \PY{n}{k}
+         
+             \PY{n}{Rho} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{n\PYZus{}dim}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Add beta in the first row or Rho}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{r} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{beta}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Rho}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{r}
+             
+             \PY{n}{index\PYZus{}lower} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tril\PYZus{}indices}\PY{p}{(}\PY{n}{n\PYZus{}dim}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n}{Rho}\PY{p}{[}\PY{n}{index\PYZus{}lower}\PY{p}{]} \PY{o}{=} \PY{n}{Rho}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{n}{index\PYZus{}lower}\PY{p}{]}
+             \PY{n}{mean} \PY{o}{=} \PY{n}{n\PYZus{}dim} \PY{o}{*} \PY{p}{[}\PY{l+m+mf}{0.}\PY{p}{]}        
+             \PY{n}{Xtrain} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{Rho}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{N}\PY{p}{)}
+             \PY{n}{Xtest} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{Rho}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{N}\PY{p}{)}
+             \PY{n}{ytrain} \PY{o}{=} \PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mf}{1.}
+             \PY{n}{ytest} \PY{o}{=} \PY{n}{Xtest}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{Xtest}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=}\PY{l+m+mf}{1.}
+             \PY{k}{return} \PY{n}{Xtrain}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{ytrain}\PY{p}{,} \PY{n}{Xtest}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{n}{k}\PY{p}{]}\PY{p}{,} \PY{n}{ytest}
+\end{Verbatim}
+
+
+    \subsubsection{Answers}\label{answers}
+
+\textbf{8.1 Generate data for different number of parameters \(k\), in
+the range 1 to 10. For each of the ten models generate 1000 training and
+1000 testing datasets with each one containing \(n=50\) observations.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Be familiar with the generated data by printing them:}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{generate\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{d}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 1.         -0.7767165 ]
+ [ 1.          0.18501063]
+ [ 1.         -0.73732799]
+ [ 1.         -0.25335297]
+ [ 1.          1.1376084 ]
+ [ 1.          0.22246277]
+ [ 1.          0.34706842]
+ [ 1.         -0.34763334]
+ [ 1.         -0.48151691]
+ [ 1.          0.16379733]]
+----------------
+[-1.21968    -0.10755208  0.5450195  -0.79343618 -0.02283883 -0.42269615
+ -0.53257513  0.38050016  0.32485441 -2.58128748]
+----------------
+[[ 1.          1.0810378 ]
+ [ 1.         -1.34142167]
+ [ 1.          1.51782813]
+ [ 1.         -0.770207  ]
+ [ 1.          1.48409741]
+ [ 1.          0.03071772]
+ [ 1.          0.30117271]
+ [ 1.         -1.20770116]
+ [ 1.         -0.1563523 ]
+ [ 1.          0.02415695]]
+----------------
+[-0.19767861 -1.90577327  1.05153771  1.60530385  1.17492306 -2.63740153
+ -0.42915273  1.31277591 -0.04681281  0.62936748]
+----------------
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{data\PYZus{}all} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}all}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{generate\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{n}{k}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \textbf{8.2 Use the training set to estimate the OLS coefficients and
+calculate the predicted values, \(\hat y_{tr}\), on the training set and
+the associated log-likelihood. Use the OLS coefficients to calculate the
+predicted values for the testing set, \(\hat y_{te}\), and the
+associated log-likelihood.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{def} \PY{n+nf}{log\PYZus{}likelihood}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+             \PY{n}{resid} \PY{o}{=} \PY{n}{y}\PY{o}{\PYZhy{}}\PY{n}{y\PYZus{}pred}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{norm}\PY{o}{.}\PY{n}{logpdf}\PY{p}{(}\PY{n}{resid}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{outputs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{data\PYZus{}all}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} initialize output}
+             \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}   
+             
+             \PY{k}{for} \PY{n}{data} \PY{o+ow}{in} \PY{n}{data\PYZus{}all}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} fit model}
+                 \PY{n}{model} \PY{o}{=} \PY{n}{OLS}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{}record aic}
+                 \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{aic}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} make predictions on train set}
+                 \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}
+                 \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{log\PYZus{}likelihood}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{c+c1}{\PYZsh{} make predictions on test set}
+                 \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}
+                 \PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{log\PYZus{}likelihood}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}\PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}\PY{p}{)}      
+\end{Verbatim}
+
+
+    \textbf{8.3 For each \(k\) compute the average and standard deviation of
+the log-likelihoods across the 2000 simulations. Plot the average
+log-likelihoods (with error bars) and the average AIC as function of
+\(k\), the number of parameters. What is the best \(k\) based on AIC?}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{average\PYZus{}likelihoods\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{outputs}\PY{p}{]}
+         \PY{n}{std\PYZus{}likelihoods\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}train\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{outputs}\PY{p}{]}
+         \PY{n}{average\PYZus{}likelihoods\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{outputs}\PY{p}{]}
+         \PY{n}{std\PYZus{}likelihoods\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZus{}test\PYZus{}log\PYZus{}likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{outputs}\PY{p}{]}
+         \PY{n}{average\PYZus{}aic\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{outputs}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{outputs}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}all}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{average\PYZus{}aic\PYZus{}train}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num of parameters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AIC vs. Model Complexity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} Text(0.5,1,'AIC vs. Model Complexity')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The best k based on aic is 3
+
+    \textbf{8.4 Verify the results in 8.3 by plotting the average
+log-likelihoods for each of the training and testing datasets as a
+function of \(k\). What is the best \(k\) based on this plot? }
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Plot the log\PYZhy{}likelihood for the traing and testing:}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{c+c1}{\PYZsh{}plt.scatter(data\PYZus{}all.keys(),average\PYZus{}aic,label=\PYZsq{}mean aic\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{data\PYZus{}all}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{average\PYZus{}likelihoods\PYZus{}train}\PY{p}{,} 
+                      \PY{n}{yerr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{std\PYZus{}likelihoods\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{1.96}\PY{p}{,} 
+                      \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean likelihood train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{data\PYZus{}all}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{average\PYZus{}likelihoods\PYZus{}test}\PY{p}{,} 
+                      \PY{n}{yerr}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{std\PYZus{}likelihoods\PYZus{}test}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{1.96}\PY{p}{,} 
+                      \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean likelihood test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num of parameters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log likelihood}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Log Likelihood Estimates at for Train and Test Sets}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ with Different Number of Parameters }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The best validation likelihood is for k=3, which confirms the result
+provided by analyzing the AIC.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
