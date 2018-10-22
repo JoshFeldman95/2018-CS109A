@@ -1,0 +1,961 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cs109a\_hw4\_209\_submit}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{ CS109A Introduction to Data
+Science:}\label{cs109a-introduction-to-data-science}
+
+\subsection{Homework 4 AC 209 :
+Regularization}\label{homework-4-ac-209-regularization}
+
+\textbf{Harvard University} \textbf{Fall 2018} \textbf{Instructors}:
+Pavlos Protopapas, Kevin Rader
+
+Names of people you have worked with goes here:
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} RUN THIS CELL FOR FORMAT}
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+        \PY{n}{styles} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/Harvard\PYZhy{}IACS/2018\PYZhy{}CS109A/master/content/styles/cs109.css}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+        \PY{n}{HTML}\PY{p}{(}\PY{n}{styles}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Imports}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{make\PYZus{}regression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,} \PY{n}{Ridge}\PY{p}{,} \PY{n}{Lasso}\PY{p}{,} \PY{n}{ElasticNet}\PY{p}{,} \PY{n}{RidgeCV}\PY{p}{,} \PY{n}{LassoCV}\PY{p}{,} \PY{n}{ElasticNetCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+     Question 1 {[}12 pts{]}
+
+Ridge and LASSO regularizations are powerful tools that not only
+increase generalization, but also expand the range of problems that we
+can solve. We will study this statement in this question.
+
+    \textbf{5.1} Let \(X\in \mathbb{R}^{n\times p}\) be a matrix of
+observations, where each row corresponds an observation and each column
+corresponds to a predictor. Now consider the case \(p > n\): explain why
+there is no unique solution to the OLS estimator.
+
+\textbf{5.2} Now consider the Ridge formulation. Show that finding the
+ridge estimator is equivalent to solving an OLS problem after adding p
+dummy observations with their X value equal to \(\lambda\) at the j-th
+component and zero everywhere else, and their Y value set to zero. In a
+nutshell, show that the ridge estimator can be found by getting the
+least squares estimator for the augmented problem:
+
+\[X^* = \begin{bmatrix} X \\ \sqrt{\lambda}I \end{bmatrix}\]
+
+\[Y^* = \begin{bmatrix} Y \\ \textbf{0} \end{bmatrix}\]
+
+\textbf{5.3} Can we now solve the \(p > n\) situation? Explain why.
+
+\textbf{5.4} Take a look at the LASSO estimator expression that we
+derived when \(X^TX=I\). What needs to happen for LASSO to nullify
+\(\beta_i\)?
+
+\textbf{5.5} Can LASSO be used when \(p>n\)? What important
+consideration, related to the number of predictors that LASSO chooses,
+do we have to keep in mind in that case?
+
+\textbf{5.6} Ridge and LASSO still have room for improvement. List two
+limitations of Ridge, and two limitations of LASSO.
+
+\textbf{5.7} Review the class slides and answer the following questions:
+When is Ridge preferred? When is LASSO preferred? When is Elastic Net
+preferred?
+
+    \subsubsection{Answers}\label{answers}
+
+    \textbf{5.1} Let \(X\in \mathbb{R}^{n\times p}\) be a matrix of
+observations, where each row corresponds an observation and each column
+corresponds to a predictor. Now consider the case \(p > n\): explain why
+there is no unique solution to the OLS estimator.
+
+    \emph{your answer here}
+
+The ordinary least squares estimator is
+
+\[
+\hat{\beta} = (X^TX)^{-1}X^Ty
+\]
+
+where \(X\) is a n x p matrix. Since there are more columns in X than
+rows, the columns of \(X\) must be linearly dependent and the space
+spanned by the columns of \(X\) has dimension \(< p\). In other words,
+\(\text{rank}(X)<p\). The \(\text{rank}(X^TX) = \text{rank}(X)\) so
+\(\text{rank}(X^TX) < p\). However, \(X^TX\) is a p x p matrix so this
+means that it is singular and it's inverse does not exist.
+
+In a more intuitive sense, if \(p > n\), there are infinite number of
+coefficients that would satisfy a linear equation. This means that for
+any coefficients, there are infinite sets of other coefficients that
+would give an equivalent result, meaning any algorithm to calculate such
+coeffecients would be completely unstable and the standard error on
+these estimates would be infinite.
+
+    \textbf{5.2} Now consider the Ridge formulation. Show that finding the
+ridge estimator is equivalent to solving an OLS problem after adding p
+dummy observations with their X value equal to \(\lambda\) at the j-th
+component and zero everywhere else, and their Y value set to zero. In a
+nutshell, show that the ridge estimator can be found by getting the
+least squares estimator for the augmented problem:
+
+\[X^* = \begin{bmatrix} X \\ \sqrt{\lambda}I \end{bmatrix}\]
+
+\[Y^* = \begin{bmatrix} Y \\ \textbf{0} \end{bmatrix}\]
+
+    \emph{your answer here} \[
+\begin{align}
+\hat{\beta}_{ridge} &= (\begin{bmatrix} X \\ \sqrt{\lambda}I \end{bmatrix}^T\begin{bmatrix} X \\ \sqrt{\lambda}I \end{bmatrix})^{-1}\begin{bmatrix} X \\ \sqrt{\lambda}I \end{bmatrix}^T\begin{bmatrix} Y \\ \textbf{0} \end{bmatrix} \\
+&= (\begin{bmatrix} X^T & \sqrt{\lambda}I \end{bmatrix}\begin{bmatrix} X \\ \sqrt{\lambda}I \end{bmatrix})^{-1}\begin{bmatrix} X^T & \sqrt{\lambda}I \end{bmatrix}\begin{bmatrix} Y \\ \textbf{0} \end{bmatrix} \\
+&= (X^TX+\sqrt{\lambda}^2 I^2)^{-1}(X^Ty+\sqrt{\lambda}I\textbf{0} ) \\
+&= (X^TX+\lambda I)^{-1}X^Ty
+\end{align}
+\] This is the ridge estimator.
+
+    \textbf{5.3} Can we now solve the \(p > n\) situation? Explain why.
+
+    \emph{your answer here}
+
+We can solve the p \textgreater{} n situation now because the "\(X\)"
+matrix is now dimension (n+p) x p, which reduces back to the normal OLS
+scenario where we have more observations than covariates.
+
+    \textbf{5.4} Take a look at the LASSO estimator expression that we
+derived when \(X^TX=I\). What needs to happen for LASSO to nullify
+\(\beta_i\)?
+
+    \emph{your answer here}
+
+\(\beta_i = 0\) when \(|x_i^Ty| < \lambda\)
+
+    \textbf{5.5} Can LASSO be used when \(p>n\)? What important
+consideration, related to the number of predictors that LASSO chooses,
+do we have to keep in mind in that case?
+
+    \emph{your answer here}
+
+LASSO can be used in this scenario, but it will only select a maximum of
+\(n\) features, even if there are other predictors that might improve
+performance.
+
+    \textbf{5.6} Ridge and LASSO still have room for improvement. List two
+limitations of Ridge, and two limitations of LASSO.
+
+    \emph{your answer here}
+
+\textbf{limitations of ridge:} 1. A limitation of ridge regression is
+that it can make model interpretation difficult because no coeffecients
+will be set to 0. If there are multicollinearities in the data, ridge
+regression won't emphasize a single covariate but rather pick
+coefficients that lead to a mix of the collinear covariates. 2. Another
+limitation of ridge regression is computational complexity because, for
+every \(\alpha\) value, we must conduct a full cross validation.
+
+\textbf{limitations of lasso:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A limitation of lasso regression is that, when used for variable
+  selection, it pick an essentially arbitrary feature amongst a set of
+  collinear covariates. If we are searching of the most relevant
+  predictors from a theoretical sense, this might be misleading.
+\item
+  Similar to ridge regression, lasso regression also suffers from
+  computational complexity issues because of the need to perform cross
+  validation. Also, since there is no closed form solution for the
+  coefficients in almost all cases, the need to perform iterative convex
+  optimization adds computational costs.
+\item
+  As mentioned above, LASSO will only select at most n features.
+\end{enumerate}
+
+    \textbf{5.7} Review the class slides and answer the following questions:
+When is Ridge preferred? When is LASSO preferred? When is Elastic Net
+preferred?
+
+    \emph{your answer here}
+
+\textbf{Ridge} is preferred when we have many weakly predictive
+variables and we want to include a bit of all of them in our final
+model.
+
+\textbf{LASSO} is preferred when we want select a few strong predictors
+out of a set of many candidate predictors.
+
+\textbf{Elastic Net} is preferred when we have many correlated
+coeffecients, but we still want to perform variable selection. It is
+also preferred when we don't know if ridge or LASSO is preferable
+because Elastic Net is a generalization of these two approaches (alpha =
+0 or 1). 
+
+     Question 6 {[}12pts{]}
+
+We want to analyze the behavior of our estimators in cases where p
+\textgreater{} n. We will generate dummy regression problems for this
+analysis, so that we have full control on the properties of the problem.
+Sklearn provides an easy to use function to generate regression
+problems: \texttt{sklearn.datasets.make\_regression}.
+
+    \textbf{6.1} Use the provided notebook cell to to build a dataset with
+500 samples, 2500 features, 100 informative features and a noise sd of
+10.0. The function will return the true coefficients in
+\texttt{true\_coef}. Intercepts are not generated, so do not fit them in
+your regressions. Fit LinearRegression, LassoCV, RidgeCV and
+ElasticNetCV estimators on the traininig set with 5-fold
+crossvalidation.
+
+Test 100 lambda values from 0.01 to 1000, in logscale. For Elastic Net,
+also test the following L1 ratios: {[}.1, .5, .7, .9, .95, .99{]} (it is
+good practice to try more ratio values near the L1 term, as the ridge
+penalty tends to have higher absolute magnitude).
+
+\textbf{Do not change \texttt{random\_state=209}, to facilitate
+grading.}
+
+\textbf{6.2} As we used \texttt{n\_informative\ =\ 100}, the true betas
+will contain 100 non-zero values. Let's see if our estimators picked up
+on that trend. Print the number of betas greater than \(10^{-6}\)
+(non-zero values) for each estimator, and comment on the results.
+
+\textbf{6.3} Let's see how our estimators perform on the test set.
+Calculate \(R^2\) for each estimator on the test set. Comment on the
+results.
+
+\textbf{6.4} Now, let's observe what happens when we increase the number
+of informative features. Generate another regression problem with the
+same parameters as before, but this time with an n\_informative of 600.
+Finally, fit OLS, Ridge, LASSO and EN, and print the number of non-zero
+coefficients and R2 Scores.
+
+\textbf{6.5} Compare the results with the previous case and comment.
+What can we say about LASSO and Elastic Net in particular?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Constants}
+         \PY{n}{n}\PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{p}\PY{o}{=} \PY{l+m+mi}{2500}
+         \PY{n}{informative}\PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{rs} \PY{o}{=} \PY{l+m+mi}{209}
+         \PY{n}{sd} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{} Generate regresion}
+         \PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{true\PYZus{}coef} \PY{o}{=} \PY{n}{make\PYZus{}regression}\PY{p}{(}\PY{n}{n\PYZus{}samples} \PY{o}{=} \PY{n}{n}\PY{p}{,} \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{n}{p}\PY{p}{,} \PY{n}{n\PYZus{}informative} \PY{o}{=} \PY{n}{informative}\PY{p}{,}
+                                         \PY{n}{coef} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{noise} \PY{o}{=} \PY{n}{sd}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{rs}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Get train test split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.33}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{rs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Solutions}\label{solutions}
+
+    \textbf{6.1} Use the provided notebook cell to to build a dataset with
+500 samples, 2500 features, 100 informative features and a noise sd of
+10.0. The function will return the true coefficients in
+\texttt{true\_coef}. Intercepts are not generated, so do not fit them in
+your regressions. Fit LinearRegression, LassoCV, RidgeCV and
+ElasticNetCV estimators on the traininig set with 5-fold
+crossvalidation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} your code here }
+         \PY{n}{linear\PYZus{}model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{lasso\PYZus{}model} \PY{o}{=} \PY{n}{LassoCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{ridge\PYZus{}model} \PY{o}{=} \PY{n}{RidgeCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{elasticnet\PYZus{}model} \PY{o}{=} \PY{n}{ElasticNetCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{linear\PYZus{}model}\PY{p}{,} \PY{n}{lasso\PYZus{}model}\PY{p}{,} \PY{n}{ridge\PYZus{}model}\PY{p}{,} \PY{n}{elasticnet\PYZus{}model}\PY{p}{]}
+\end{Verbatim}
+
+
+    \textbf{6.2} As we used \texttt{n\_informative\ =\ 100}, the true betas
+will contain 100 non-zero values. Let's see if our estimators picked up
+on that trend. Print the number of betas greater than \(10^{-6}\)
+(non-zero values) for each estimator, and comment on the results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of coefficients greater than 10\PYZca{}\PYZhy{}6: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{c} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{m}\PY{o}{.}\PY{n}{coef\PYZus{}} \PY{k}{if} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{c}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LinearRegression
+Number of coefficients greater than 10\^{}-6:  2500
+LassoCV
+Number of coefficients greater than 10\^{}-6:  273
+RidgeCV
+Number of coefficients greater than 10\^{}-6:  2500
+ElasticNetCV
+Number of coefficients greater than 10\^{}-6:  2129
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+Only the LASSO regression picked up on the fact that 100 of the true
+parameters are non zero.
+
+    \textbf{6.3} Let's see how our estimators perform on the test set.
+Calculate \(R^2\) for each estimator on the test set. Comment on the
+results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} your code here }
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 score: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{m}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LinearRegression
+R\^{}2 score:  0.1763568801018589
+LassoCV
+R\^{}2 score:  0.6452173590512248
+RidgeCV
+R\^{}2 score:  0.1760360551568948
+ElasticNetCV
+R\^{}2 score:  0.18230787063124373
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+The LASSO regression performs much better than the other 3 estimators.
+
+    \textbf{6.4} Now, let's observe what happens when we increase the number
+of informative features. Generate another regression problem with the
+same parameters as before, but this time with an n\_informative of 600.
+Finally, fit OLS, Ridge, LASSO and EN, and print the number of non-zero
+coefficients and R2 Scores.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Constants}
+         \PY{n}{n}\PY{o}{=} \PY{l+m+mi}{500}
+         \PY{n}{p}\PY{o}{=} \PY{l+m+mi}{2500}
+         \PY{n}{informative}\PY{o}{=} \PY{l+m+mi}{600}
+         \PY{n}{rs} \PY{o}{=} \PY{l+m+mi}{209}
+         \PY{n}{sd} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{c+c1}{\PYZsh{} Generate regresion}
+         \PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{true\PYZus{}coef} \PY{o}{=} \PY{n}{make\PYZus{}regression}\PY{p}{(}\PY{n}{n\PYZus{}samples} \PY{o}{=} \PY{n}{n}\PY{p}{,} \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{n}{p}\PY{p}{,} \PY{n}{n\PYZus{}informative} \PY{o}{=} \PY{n}{informative}\PY{p}{,}
+                                         \PY{n}{coef} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{noise} \PY{o}{=} \PY{n}{sd}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{rs}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Get train test split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.33}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{rs}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{linear\PYZus{}model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{lasso\PYZus{}model} \PY{o}{=} \PY{n}{LassoCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{ridge\PYZus{}model} \PY{o}{=} \PY{n}{RidgeCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{elasticnet\PYZus{}model} \PY{o}{=} \PY{n}{ElasticNetCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{linear\PYZus{}model}\PY{p}{,} \PY{n}{lasso\PYZus{}model}\PY{p}{,} \PY{n}{ridge\PYZus{}model}\PY{p}{,} \PY{n}{elasticnet\PYZus{}model}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of coefficients greater than 10\PYZca{}\PYZhy{}6: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{p}{[}\PY{n}{c} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{m}\PY{o}{.}\PY{n}{coef\PYZus{}} \PY{k}{if} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{c}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{1e\PYZhy{}6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LinearRegression
+Number of coefficients greater than 10\^{}-6:  2500
+LassoCV
+Number of coefficients greater than 10\^{}-6:  101
+RidgeCV
+Number of coefficients greater than 10\^{}-6:  2500
+ElasticNetCV
+Number of coefficients greater than 10\^{}-6:  2321
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} your code here }
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{models}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 score: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{m}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LinearRegression
+R\^{}2 score:  0.1437218941092525
+LassoCV
+R\^{}2 score:  -0.03303847031928564
+RidgeCV
+R\^{}2 score:  0.14374750375574308
+ElasticNetCV
+R\^{}2 score:  0.1426042784641578
+
+    \end{Verbatim}
+
+    \textbf{6.5} Compare the results with the previous case and comment.
+What can we say about LASSO and Elastic Net in particular?
+
+    \emph{your answer here}
+
+The lasso regression now performs much worse than in the previous case.
+This is because there are more covariates than observations, which means
+that lasso will not be able to select all of the relevant predictors.
+
+For this reason, the cross validation ensures that elastic net has a
+regularization term that is more similar to ridge than lasso. This is an
+advantage of elastic net: it can perform feature selection while not
+being restricted to only choosing n parameters when p \textgreater{} n.
+
+     Question 7 {[}1pt{]} (for fun)
+
+We would like to visualize how Ridge, LASSO and Elastic Net behave. We
+will build a toy regression example to observe the behavior of the
+coefficients and loss function as lambda increases.
+
+\textbf{7.1} Use \texttt{sklearn.datasets.make\_regression} to build a
+well-conditioned regression problem with 1000 samples, 5 features, noise
+standard deviation of 10 and random state 209.
+
+\textbf{7.2} Find the Ridge, LASSO and EN estimator for this problem,
+varying the regularization parameter in the interval \([0.1,100]\) for
+LASSO and EN, and \([0.1,10000]\) for Ridge. Plot the evolution of the 5
+coefficients for each estimator in a 2D plot, where the X axis is the
+regularization parameter and the Y axis is the coefficient value. For
+Elastic Net, make 4 plots, each one with one of the following L1 ratios:
+\([0.1, 0.5, 0.8, 0.95]\) You should have 6 plots: one for Lasso, one
+for Ridge, and 4 for EN. Each plot should have 5 curves, one per
+coefficient.
+
+\textbf{7.3} Comment on this evolution. Does this make sense with what
+we've seen so far?
+
+\textbf{7.4} We're now interested in visualizing the behavior of the
+Loss functions. First, generate a regression problem with 1000 samples
+and 2 features. Then, use the provided "loss\_3d\_interactive" function
+to observe how the loss surface changes as the regularization parameter
+changes. Test the function with Ridge\_loss, LASSO\_loss and EN\_loss.
+Comment on what you observe.**
+
+\textbf{Note: for this to work, you have to install plotly. Go to
+https://plot.ly/python/getting-started/ and follow the steps. You don't
+need to make an account as we'll use the offline mode.}
+
+    \subsubsection{Solutions}\label{solutions}
+
+    \textbf{7.1} Use \texttt{sklearn.datasets.make\_regression} to build a
+well-conditioned regression problem with 1000 samples, 5 features, noise
+standard deviation of 10 and random state 209.
+
+    \textbf{7.2} Find the Ridge, LASSO and EN estimator for this problem,
+varying the regularization parameter in the interval \([0.1,100]\) for
+LASSO and EN, and \([0.1,10000]\) for Ridge. Plot the evolution of the 5
+coefficients for each estimator in a 2D plot, where the X axis is the
+regularization parameter and the Y axis is the coefficient value. For
+Elastic Net, make 4 plots, each one with one of the following L1 ratios:
+\([0.1, 0.5, 0.8, 0.95]\) You should have 6 plots: one for Lasso, one
+for Ridge, and 4 for EN. Each plot should have 5 curves, one per
+coefficient. **
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} your code here }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}your code here}
+\end{Verbatim}
+
+
+    \textbf{7.3} Comment on this evolution. Does this make sense with what
+we've seen so far?**
+
+    \emph{your answer here}
+
+    \textbf{7.4} We're now interested in visualizing the behavior of the
+Loss functions. First, generate a regression problem with 1000 samples
+and 2 features. Then, use the provided "loss\_3d\_interactive" function
+to observe how the loss surface changes as the regularization parameter
+changes. Test the function with Ridge\_loss, LASSO\_loss and EN\_loss.
+Comment on what you observe.**
+
+\textbf{Note: for this to work, you have to install plotly. Go to
+https://plot.ly/python/getting-started/ and follow the steps. You don't
+need to make an account as we'll use the offline mode.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{true\PYZus{}coef} \PY{o}{=} \PY{n}{make\PYZus{}regression}\PY{p}{(}\PY{n}{n\PYZus{}samples} \PY{o}{=} \PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{noise} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{209}\PY{p}{,} \PY{n}{coef}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k+kn}{from} \PY{n+nn}{ipywidgets} \PY{k}{import} \PY{n}{interactive}\PY{p}{,} \PY{n}{HBox}\PY{p}{,} \PY{n}{VBox}
+         \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{import} \PY{n}{download\PYZus{}plotlyjs}\PY{p}{,} \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{,} \PY{n}{plot}\PY{p}{,} \PY{n}{iplot}
+         \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{as} \PY{n+nn}{go}
+         \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{OLS\PYZus{}loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{lbda}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{beta}\PY{p}{)}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{Ridge\PYZus{}loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{lbda}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{beta}\PY{p}{)}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{+} \PY{n}{lbda}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{beta}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{LASSO\PYZus{}loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{lbda}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{beta}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{+} \PY{n}{lbda}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{EN\PYZus{}loss}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{lbda}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ratio}\PY{o}{=}\PY{l+m+mf}{0.1}
+             \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{beta}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{y\PYZus{}hat}\PY{o}{\PYZhy{}}\PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{+} \PY{n}{lbda}\PY{o}{*}\PY{p}{(}\PY{n}{ratio}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{beta}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{ratio}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{beta}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{loss\PYZus{}3d\PYZus{}interactive}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Uses plotly to draw an interactive 3D representation of the loss function, }
+         \PY{l+s+sd}{    with a slider to control the regularization factor.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Inputs:}
+         \PY{l+s+sd}{    X: predictor matrix for the regression problem. Has to be of dim n x 2}
+         \PY{l+s+sd}{    y: response vector }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    loss: string with the loss to plot. Options are \PYZsq{}Ridge\PYZsq{}, \PYZsq{}LASSO\PYZsq{}, \PYZsq{}EN\PYZsq{}.}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{k}{if} \PY{n}{loss} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{loss\PYZus{}function} \PY{o}{=} \PY{n}{Ridge\PYZus{}loss}
+                 \PY{n}{lbda\PYZus{}slider\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{lbda\PYZus{}slider\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{10000}
+                 \PY{n}{lbda\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{10}
+                 \PY{n}{clf} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{loss} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LASSO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{loss\PYZus{}function} \PY{o}{=} \PY{n}{LASSO\PYZus{}loss}
+                 \PY{n}{lbda\PYZus{}slider\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{lbda\PYZus{}slider\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{150}
+                 \PY{n}{lbda\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{clf} \PY{o}{=} \PY{n}{Lasso}\PY{p}{(}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{loss} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{loss\PYZus{}function} \PY{o}{=} \PY{n}{EN\PYZus{}loss}
+                 \PY{n}{lbda\PYZus{}slider\PYZus{}min} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{lbda\PYZus{}slider\PYZus{}max} \PY{o}{=} \PY{l+m+mi}{150}
+                 \PY{n}{lbda\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{clf} \PY{o}{=} \PY{n}{ElasticNet}\PY{p}{(}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss string not recognized. Available options are: }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Ridge}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{LASSO}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{EN}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 
+             
+             \PY{c+c1}{\PYZsh{} linspace for loss surface}
+             \PY{n}{L}\PY{o}{=}\PY{l+m+mi}{20}
+             \PY{n}{lsp\PYZus{}b} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{80}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{,}\PY{n}{L}\PY{p}{)}
+             \PY{n}{lsp\PYZus{}b\PYZus{}x}\PY{p}{,} \PY{n}{lsp\PYZus{}b\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{lsp\PYZus{}b}\PY{p}{,}\PY{n}{lsp\PYZus{}b}\PY{p}{)}
+             \PY{n}{lsp\PYZus{}b\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{column\PYZus{}stack}\PY{p}{(}\PY{p}{(}\PY{n}{lsp\PYZus{}b\PYZus{}x}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{lsp\PYZus{}b\PYZus{}y}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Get all optimal betas for current lambda range}
+             \PY{n}{precomp\PYZus{}coefs}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{lbda\PYZus{}slider\PYZus{}min}\PY{p}{,}\PY{n}{lbda\PYZus{}slider\PYZus{}max}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{lbda\PYZus{}step}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{clf}\PY{o}{.}\PY{n}{set\PYZus{}params}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{n}{l}\PY{p}{)}
+                 \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                 \PY{n}{precomp\PYZus{}coefs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+                         
+             \PY{n}{f} \PY{o}{=} \PY{n}{go}\PY{o}{.}\PY{n}{FigureWidget}\PY{p}{(}
+                 \PY{n}{data}\PY{o}{=}\PY{p}{[}
+                     \PY{n}{go}\PY{o}{.}\PY{n}{Surface}\PY{p}{(}
+                             \PY{n}{x}\PY{o}{=}\PY{n}{lsp\PYZus{}b\PYZus{}x}\PY{p}{,}
+                             \PY{n}{y}\PY{o}{=}\PY{n}{lsp\PYZus{}b\PYZus{}y}\PY{p}{,}
+                             \PY{n}{z}\PY{o}{=}\PY{n}{loss\PYZus{}function}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{lsp\PYZus{}b\PYZus{}mat}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{L}\PY{p}{,}\PY{n}{L}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                             \PY{n}{colorscale}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{n}{opacity}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,}
+                             \PY{n}{contours}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{z}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{show}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                                  \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}
+                                                  \PY{n}{highlight}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                                  \PY{n}{highlightcolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                  \PY{n}{project}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{z}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{,}
+                                                  \PY{n}{usecolormap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+                     \PY{p}{)}\PY{p}{,}
+                     
+                     \PY{n}{go}\PY{o}{.}\PY{n}{Scatter3d}\PY{p}{(}
+                         \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{precomp\PYZus{}coefs}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{precomp\PYZus{}coefs}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{z}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{precomp\PYZus{}coefs}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                         \PY{n}{marker}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                             \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                             \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{n}{line}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                 \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{1}
+                                 \PY{p}{)}\PY{p}{,}
+                             \PY{n}{opacity}\PY{o}{=}\PY{l+m+mi}{1}
+                             \PY{p}{)}
+                         \PY{p}{)}\PY{p}{,}
+                     \PY{n}{go}\PY{o}{.}\PY{n}{Scatter3d}\PY{p}{(}
+                         \PY{n}{x}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{y}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{z}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         
+                         \PY{n}{marker}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+                             \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+                             \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                             \PY{n}{opacity}\PY{o}{=}\PY{l+m+mi}{1}
+                             \PY{p}{)}\PY{p}{,}
+                     \PY{p}{)}
+                 \PY{p}{]}\PY{p}{,}
+         
+                 \PY{n}{layout}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{Layout}\PY{p}{(}\PY{n}{scene}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{layout}\PY{o}{.}\PY{n}{Scene}\PY{p}{(}
+                             \PY{n}{xaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Beta 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                             \PY{n}{yaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Beta 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                             \PY{n}{zaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+                                 \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{camera}\PY{o}{=}\PY{n}{go}\PY{o}{.}\PY{n}{layout}\PY{o}{.}\PY{n}{scene}\PY{o}{.}\PY{n}{Camera}\PY{p}{(}
+                         \PY{n}{up}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                         \PY{n}{center}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                         \PY{n}{eye}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+m+mf}{1.25}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.25}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mf}{1.25}\PY{p}{)}\PY{p}{)}
+                 \PY{p}{)}\PY{p}{,}
+                     \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,}
+                     \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{700}\PY{p}{,}\PY{p}{)}
+             \PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{update\PYZus{}z}\PY{p}{(}\PY{n}{lbda}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{f}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{z} \PY{o}{=} \PY{n}{loss\PYZus{}function}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{lsp\PYZus{}b\PYZus{}mat}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{lbda}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{n}{L}\PY{p}{,}\PY{n}{L}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{beta\PYZus{}opt} \PY{o}{=} \PY{n}{precomp\PYZus{}coefs}\PY{p}{[}\PY{p}{(}\PY{n}{lbda}\PY{o}{\PYZhy{}}\PY{n}{lbda\PYZus{}slider\PYZus{}min}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{p}{(}\PY{n}{lbda\PYZus{}step}\PY{p}{)}\PY{p}{]}
+                 \PY{n}{f}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{beta\PYZus{}opt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{f}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{beta\PYZus{}opt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+                 \PY{n}{f}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{z} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+             \PY{n}{lambda\PYZus{}slider} \PY{o}{=} \PY{n}{interactive}\PY{p}{(}\PY{n}{update\PYZus{}z}\PY{p}{,} \PY{n}{lbda}\PY{o}{=}\PY{p}{(}\PY{n}{lbda\PYZus{}slider\PYZus{}min}\PY{p}{,} \PY{n}{lbda\PYZus{}slider\PYZus{}max}\PY{p}{,} \PY{n}{lbda\PYZus{}step}\PY{p}{)}\PY{p}{)}
+             \PY{n}{vb} \PY{o}{=} \PY{n}{VBox}\PY{p}{(}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{lambda\PYZus{}slider}\PY{p}{)}\PY{p}{)}
+             \PY{n}{vb}\PY{o}{.}\PY{n}{layout}\PY{o}{.}\PY{n}{align\PYZus{}items} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{display}\PY{p}{(}\PY{n}{vb}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}youe code here}
+         \PY{n}{loss\PYZus{}3d\PYZus{}interactive}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}youe code here}
+         \PY{n}{loss\PYZus{}3d\PYZus{}interactive}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LASSO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}youe code here}
+         \PY{n}{loss\PYZus{}3d\PYZus{}interactive}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

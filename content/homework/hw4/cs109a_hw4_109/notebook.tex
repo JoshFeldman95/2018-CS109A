@@ -1,0 +1,1457 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cs109a\_hw4\_109\_submit}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{ CS109A Introduction to Data
+Science:}\label{cs109a-introduction-to-data-science}
+
+\subsection{Homework 4 -
+Regularization}\label{homework-4---regularization}
+
+\textbf{Harvard University} \textbf{Fall 2018} \textbf{Instructors}:
+Pavlos Protopapas, Kevin Rader
+
+    \subsubsection{INSTRUCTIONS}\label{instructions}
+
+\begin{itemize}
+\item
+  \textbf{This homework must be completed individually.}
+\item
+  To submit your assignment follow the instructions given in Canvas.
+\item
+  Restart the kernel and run the whole notebook again before you submit.
+\item
+  As much as possible, try and stick to the hints and functions we
+  import at the top of the homework, as those are the ideas and tools
+  the class supports and is aiming to teach. And if a problem specifies
+  a particular library you're required to use that library, and possibly
+  others from the import list.
+\end{itemize}
+
+Names of people you have worked with goes here:
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{}RUN THIS CELL }
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+         \PY{n}{styles} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/Harvard\PYZhy{}IACS/2018\PYZhy{}CS109A/master/content/styles/cs109.css}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+         \PY{n}{HTML}\PY{p}{(}\PY{n}{styles}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    import these libraries
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{k+kn}{import} \PY{n+nn}{warnings}
+         \PY{c+c1}{\PYZsh{}warnings.filterwarnings(\PYZsq{}ignore\PYZsq{})}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Lasso}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{RidgeCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LassoCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{LeaveOneOut}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+         
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{regression}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{OLS}
+         
+         \PY{k+kn}{from} \PY{n+nn}{pandas}\PY{n+nn}{.}\PY{n+nn}{core} \PY{k}{import} \PY{n}{datetools}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \section{Continuing Bike Sharing Usage
+Data}\label{continuing-bike-sharing-usage-data}
+
+In this homework, we will focus on regularization and cross validation.
+We will continue to build regression models for the
+\href{https://www.capitalbikeshare.com}{Capital Bikeshare program} in
+Washington D.C. See homework 3 for more information about the Capital
+Bikeshare data that we'll be using extensively.
+
+     Question 1 {[}20pts{]} Data pre-processing 
+
+    \textbf{1.1} Read in the provided \texttt{bikes\_student.csv} to a data
+frame named \texttt{bikes\_main}. Split it into a training set
+\texttt{bikes\_train} and a validation set \texttt{bikes\_val}. Use
+\texttt{random\_state=90}, a test set size of .2, and stratify on month.
+Remember to specify the data's index column as you read it in.
+
+\textbf{1.2} As with last homework, the response will be the
+\texttt{counts} column and we'll drop \texttt{counts},
+\texttt{registered} and \texttt{casual} for being trivial predictors,
+drop \texttt{workingday} and \texttt{month} for being multicollinear
+with other columns, and \texttt{dteday} for being inappropriate for
+regression. Write code to do this.
+
+Encapsulate this process as a function with appropriate inputs and
+outputs, and \textbf{test} your code by producing
+\texttt{practice\_y\_train} and \texttt{practice\_X\_train}.
+
+\textbf{1.3} Write a function to standardize a provided subset of
+columns in your training/validation/test sets. Remember that while you
+will be scaling all of your data, you must learn the scaling parameters
+(mean and SD) from only the training set.
+
+Test your code by building a list of all non-binary columns in your
+\texttt{practice\_X\_train} and scaling only those columns. Call the
+result \texttt{practice\_X\_train\_scaled}. Display the
+\texttt{.describe()} and verify that you have correctly scaled all
+columns, including the polynomial columns.
+
+\textbf{Hint: employ the provided list of binary columns and use
+\texttt{pd.columns.difference()}}
+
+\texttt{binary\_columns\ =\ {[}\ \textquotesingle{}holiday\textquotesingle{},\ \textquotesingle{}workingday\textquotesingle{},\textquotesingle{}Feb\textquotesingle{},\ \textquotesingle{}Mar\textquotesingle{},\ \textquotesingle{}Apr\textquotesingle{},\ \ \ \ \ \ \ \ \textquotesingle{}May\textquotesingle{},\ \textquotesingle{}Jun\textquotesingle{},\ \textquotesingle{}Jul\textquotesingle{},\ \textquotesingle{}Aug\textquotesingle{},\ \textquotesingle{}Sept\textquotesingle{},\ \textquotesingle{}Oct\textquotesingle{},\ \textquotesingle{}Nov\textquotesingle{},\ \textquotesingle{}Dec\textquotesingle{},\ \textquotesingle{}spring\textquotesingle{},\ \ \ \ \ \ \ \ \textquotesingle{}summer\textquotesingle{},\ \textquotesingle{}fall\textquotesingle{},\ \textquotesingle{}Mon\textquotesingle{},\ \textquotesingle{}Tue\textquotesingle{},\ \textquotesingle{}Wed\textquotesingle{},\ \textquotesingle{}Thu\textquotesingle{},\ \textquotesingle{}Fri\textquotesingle{},\ \textquotesingle{}Sat\textquotesingle{},\ \ \ \ \ \ \ \ \textquotesingle{}Cloudy\textquotesingle{},\ \textquotesingle{}Snow\textquotesingle{},\ \textquotesingle{}Storm\textquotesingle{}{]}}
+
+\textbf{1.4} Write a code to augment your a dataset with higher-order
+features for \texttt{temp}, \texttt{atemp},
+\texttt{hum},\texttt{windspeed}, and \texttt{hour}. You should include
+ONLY the pure powers of these columns. So with degree=2 you should
+produce \texttt{atemp\^{}2} and \texttt{hum\^{}2} but not
+\texttt{atemp*hum} or any other two-feature interactions.
+
+Encapsulate this process as a function with appropriate inputs and
+outputs, and test your code by producing
+\texttt{practice\_X\_train\_poly}, a training dataset with quadratic and
+cubic features built from \texttt{practice\_X\_train\_scaled}, and
+printing \texttt{practice\_X\_train\_poly}'s column names and
+\texttt{.head()}.
+
+\textbf{1.5} Write code to add interaction terms to the model.
+Specifically, we want interactions between the continuous predictors
+(\texttt{temp},\texttt{atemp}, \texttt{hum},\texttt{windspeed}) and the
+month and weekday dummies (\texttt{Feb}, \texttt{Mar}...\texttt{Dec},
+\texttt{Mon}, \texttt{Tue}, ... \texttt{Sat}). That means you SHOULD
+build \texttt{atemp*Feb} and \texttt{hum*Mon} and so on, but NOT
+\texttt{Feb*Mar} and NOT \texttt{Feb*Tue}. The interaction terms should
+always be a continuous feature times a month dummy or a continuous
+feature times a weekday dummy.
+
+Encapsulate this process as a function with appropriate inputs and
+outputs, and test your code by adding interaction terms to
+\texttt{practice\_X\_train\_poly} and show its column names and
+\texttt{.head()}**
+
+\textbf{1.6} Combine all your code so far into a function that takes in
+\texttt{bikes\_train}, \texttt{bikes\_val}, the names of columns for
+polynomial, the target column, the columns to be dropped and produces
+computation-ready design matrices \texttt{X\_train} and \texttt{X\_val}
+and responses \texttt{y\_train} and \texttt{y\_val}. Your final function
+should build correct, scaled design matrices with the stated interaction
+terms and any polynomial degree.
+
+    \subsubsection{Solutions}\label{solutions}
+
+    \textbf{1.1} Read in the provided \texttt{bikes\_student.csv} to a data
+frame named \texttt{bikes\_main}. Split it into a training set
+\texttt{bikes\_train} and a validation set \texttt{bikes\_val}. Use
+\texttt{random\_state=90}, a test set size of .2, and stratify on month.
+Remember to specify the data's index column as you read it in.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} read in the data}
+         \PY{n}{bikes\PYZus{}main} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/bikes\PYZus{}student.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{bikes\PYZus{}main}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:}            dteday  hour  year  holiday  workingday  temp   atemp   hum  \textbackslash{}
+         5887   2011-09-07    19     0        0           1  0.64  0.5758  0.89   
+         10558  2012-03-21     1     1        0           1  0.52  0.5000  0.83   
+         14130  2012-08-16    23     1        0           1  0.70  0.6515  0.54   
+         2727   2011-04-28    13     0        0           1  0.62  0.5758  0.83   
+         8716   2012-01-04     0     1        0           1  0.08  0.0606  0.42   
+         
+                windspeed  casual  {\ldots}    Mon  Tue  Wed  Thu  Fri  Sat  Cloudy  Snow  \textbackslash{}
+         5887      0.0000      14  {\ldots}      0    0    1    0    0    0       1     0   
+         10558     0.0896       4  {\ldots}      0    0    1    0    0    0       0     0   
+         14130     0.1045      58  {\ldots}      0    0    0    1    0    0       0     0   
+         2727      0.2985      18  {\ldots}      0    0    0    1    0    0       1     0   
+         8716      0.3284       0  {\ldots}      0    0    1    0    0    0       0     0   
+         
+                Storm  month  
+         5887       0      9  
+         10558      0      3  
+         14130      0      8  
+         2727       0      4  
+         8716       0      1  
+         
+         [5 rows x 36 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{bikes\PYZus{}main}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['dteday', 'hour', 'year', 'holiday', 'workingday', 'temp', 'atemp',
+       'hum', 'windspeed', 'casual', 'registered', 'counts', 'Feb', 'Mar',
+       'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec',
+       'spring', 'summer', 'fall', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+       'Cloudy', 'Snow', 'Storm', 'month'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{bikes\PYZus{}train}\PY{p}{,} \PY{n}{bikes\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{bikes\PYZus{}main}\PY{p}{,} 
+                                                   \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} 
+                                                   \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} 
+                                                   \PY{n}{stratify} \PY{o}{=} \PY{n}{bikes\PYZus{}main}\PY{o}{.}\PY{n}{month}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{1.2} As with last homework, the response will be the
+\texttt{counts} column and we'll drop \texttt{counts},
+\texttt{registered} and \texttt{casual} for being trivial predictors,
+drop \texttt{workingday} and \texttt{month} for being multicolinear with
+other columns, and \texttt{dteday} for being inappropriate for
+regression. Write code to do this.
+
+Encapsulate this process as a function with appropriate inputs and
+outputs, and test your code by producing \texttt{practice\_y\_train} and
+\texttt{practice\_X\_train}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}X\PYZus{}and\PYZus{}y}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{response\PYZus{}column}\PY{p}{,} \PY{n}{columns\PYZus{}to\PYZus{}drop}\PY{p}{)}\PY{p}{:}
+             \PY{n}{response\PYZus{}column} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{columns\PYZus{}to\PYZus{}drop} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             
+             \PY{n}{df\PYZus{}X} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns\PYZus{}to\PYZus{}drop}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{df\PYZus{}y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{response\PYZus{}column}\PY{p}{]}
+             
+             \PY{k}{return} \PY{n}{df\PYZus{}X}\PY{p}{,} \PY{n}{df\PYZus{}y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{response\PYZus{}column} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{columns\PYZus{}to\PYZus{}drop} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{practice\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{practice\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{get\PYZus{}X\PYZus{}and\PYZus{}y}\PY{p}{(}\PY{n}{bikes\PYZus{}train}\PY{p}{,} \PY{n}{response\PYZus{}column}\PY{p}{,} \PY{n}{columns\PYZus{}to\PYZus{}drop}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{practice\PYZus{}X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['hour', 'year', 'holiday', 'temp', 'atemp', 'hum', 'windspeed', 'Feb',
+       'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec',
+       'spring', 'summer', 'fall', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+       'Cloudy', 'Snow', 'Storm'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{practice\PYZus{}y\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['counts'], dtype='object')
+
+    \end{Verbatim}
+
+    \textbf{1.3} Write a function to standardize a provided subset of
+columns in your training/validation/test sets. Remember that while you
+will be scaling all of your data, you must learn the scaling parameters
+(mean and SD) from only the training set.
+
+Test your code by building a list of all non-binary columns in your
+\texttt{practice\_X\_train} and scaling only those columns. Call the
+result \texttt{practice\_X\_train\_scaled}. Display the
+\texttt{.describe()} and verify that you have correctly scaled all
+columns, including the polynomial columns.
+
+\textbf{Hint: employ the provided list of binary columns and use
+\texttt{pd.columns.difference()}}
+
+\texttt{binary\_columns\ =\ {[}\ \textquotesingle{}holiday\textquotesingle{},\ \textquotesingle{}workingday\textquotesingle{},\textquotesingle{}Feb\textquotesingle{},\ \textquotesingle{}Mar\textquotesingle{},\ \textquotesingle{}Apr\textquotesingle{},\ \ \ \ \ \ \ \ \textquotesingle{}May\textquotesingle{},\ \textquotesingle{}Jun\textquotesingle{},\ \textquotesingle{}Jul\textquotesingle{},\ \textquotesingle{}Aug\textquotesingle{},\ \textquotesingle{}Sept\textquotesingle{},\ \textquotesingle{}Oct\textquotesingle{},\ \textquotesingle{}Nov\textquotesingle{},\ \textquotesingle{}Dec\textquotesingle{},\ \textquotesingle{}spring\textquotesingle{},\ \ \ \ \ \ \ \ \textquotesingle{}summer\textquotesingle{},\ \textquotesingle{}fall\textquotesingle{},\ \textquotesingle{}Mon\textquotesingle{},\ \textquotesingle{}Tue\textquotesingle{},\ \textquotesingle{}Wed\textquotesingle{},\ \textquotesingle{}Thu\textquotesingle{},\ \textquotesingle{}Fri\textquotesingle{},\ \textquotesingle{}Sat\textquotesingle{},\ \ \ \ \ \ \ \ \textquotesingle{}Cloudy\textquotesingle{},\ \textquotesingle{}Snow\textquotesingle{},\ \textquotesingle{}Storm\textquotesingle{}{]}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{k}{def} \PY{n+nf}{scale\PYZus{}col}\PY{p}{(}\PY{n}{df\PYZus{}to\PYZus{}scale}\PY{p}{,} \PY{n}{df\PYZus{}train}\PY{p}{,} \PY{n}{col\PYZus{}to\PYZus{}scale}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df} \PY{o}{=} \PY{n}{df\PYZus{}to\PYZus{}scale}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{df}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{col} \PY{o+ow}{in} \PY{n}{col\PYZus{}to\PYZus{}scale}\PY{p}{:}
+                      \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{df\PYZus{}train}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}standardize columns}
+              \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{binary\PYZus{}columns} \PY{o}{=} \PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{holiday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Apr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{May}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jul}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nov}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{summer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cloudy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Storm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{non\PYZus{}binary\PYZus{}columns} \PY{o}{=} \PY{n}{practice\PYZus{}X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{n}{binary\PYZus{}columns}\PY{p}{)}
+          \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}scaled}  \PY{o}{=} \PY{n}{scale\PYZus{}col}\PY{p}{(}\PY{n}{practice\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{practice\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{non\PYZus{}binary\PYZus{}columns}\PY{p}{)}
+          \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}scaled}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:}                hour          year      holiday          temp         atemp  \textbackslash{}
+          count  1.000000e+03  1.000000e+03  1000.000000  1.000000e+03  1.000000e+03   
+          mean  -1.278977e-16 -4.973799e-17     0.027000  5.329071e-17 -1.101341e-16   
+          std    1.000000e+00  1.000000e+00     0.162164  1.000000e+00  1.000000e+00   
+          min   -1.645340e+00 -1.017656e+00     0.000000 -2.346801e+00 -2.401403e+00   
+          25\%   -9.185353e-01 -1.017656e+00     0.000000 -7.918731e-01 -8.117208e-01   
+          50\%   -4.637012e-02  9.816679e-01     0.000000  3.742194e-02  7.143602e-02   
+          75\%    8.257951e-01  9.816679e-01     0.000000  8.667170e-01  8.665686e-01   
+          max    1.697960e+00  9.816679e-01     1.000000  2.317983e+00  2.544858e+00   
+          
+                          hum     windspeed          Feb          Mar          Apr  \textbackslash{}
+          count  1.000000e+03  1.000000e+03  1000.000000  1000.000000  1000.000000   
+          mean   1.136868e-16  8.881784e-17     0.078000     0.085000     0.082000   
+          std    1.000000e+00  1.000000e+00     0.268306     0.279021     0.274502   
+          min   -3.395903e+00 -1.553427e+00     0.000000     0.000000     0.000000   
+          25\%   -7.417755e-01 -7.227439e-01     0.000000     0.000000     0.000000   
+          50\%    5.446269e-02 -1.129730e-02     0.000000     0.000000     0.000000   
+          75\%    8.507009e-01  4.632654e-01     0.000000     0.000000     0.000000   
+          max    1.912352e+00  5.208893e+00     1.000000     1.000000     1.000000   
+          
+                  {\ldots}           fall          Mon          Tue          Wed  \textbackslash{}
+          count   {\ldots}    1000.000000  1000.000000  1000.000000  1000.000000   
+          mean    {\ldots}       0.248000     0.143000     0.148000     0.162000   
+          std     {\ldots}       0.432068     0.350248     0.355278     0.368635   
+          min     {\ldots}       0.000000     0.000000     0.000000     0.000000   
+          25\%     {\ldots}       0.000000     0.000000     0.000000     0.000000   
+          50\%     {\ldots}       0.000000     0.000000     0.000000     0.000000   
+          75\%     {\ldots}       0.000000     0.000000     0.000000     0.000000   
+          max     {\ldots}       1.000000     1.000000     1.000000     1.000000   
+          
+                         Thu         Fri         Sat       Cloudy         Snow   Storm  
+          count  1000.000000  1000.00000  1000.00000  1000.000000  1000.000000  1000.0  
+          mean      0.128000     0.12700     0.15000     0.280000     0.082000     0.0  
+          std       0.334257     0.33314     0.35725     0.449224     0.274502     0.0  
+          min       0.000000     0.00000     0.00000     0.000000     0.000000     0.0  
+          25\%       0.000000     0.00000     0.00000     0.000000     0.000000     0.0  
+          50\%       0.000000     0.00000     0.00000     0.000000     0.000000     0.0  
+          75\%       0.000000     0.00000     0.00000     1.000000     0.000000     0.0  
+          max       1.000000     1.00000     1.00000     1.000000     1.000000     0.0  
+          
+          [8 rows x 30 columns]
+\end{Verbatim}
+            
+    \textbf{1.4} Write a code to augment your a dataset with higher-order
+features for \texttt{temp}, \texttt{atemp},
+\texttt{hum},\texttt{windspeed}, and \texttt{hour}. You should include
+ONLY pure powers of these columns. So with degree=2 you should produce
+\texttt{atemp\^{}2} and \texttt{hum\^{}2} but not \texttt{atemp*hum} or
+any other two-feature interactions.
+
+Encapsulate this process as a function with apropriate inputs and
+outputs, and test your code by producing
+\texttt{practice\_X\_train\_poly}, a training dataset with qudratic and
+cubic features built from \texttt{practice\_X\_train\_scaled}, and
+printing \texttt{practice\_X\_train\_poly}'s column names and
+\texttt{.head()}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{k}{def} \PY{n+nf}{add\PYZus{}poly\PYZus{}columns}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{columns}\PY{p}{,} \PY{n}{degree}\PY{p}{,} 
+                               \PY{n}{nonbinary\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{atemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{windspeed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    df pandas DataFrame: the df to add polynomial terms to}
+          \PY{l+s+sd}{    columns list(str): the list of columns for which to add polynomial terms}
+          \PY{l+s+sd}{    degree int: add polynomials from 2 to this degree (inclusive). Interactions are not included.}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{df\PYZus{}poly} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{degree} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{columns}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{col} \PY{o+ow}{in} \PY{n}{nonbinary\PYZus{}columns}\PY{p}{:}
+                          \PY{n}{df\PYZus{}poly}\PY{p}{[}\PY{n}{col}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{n}{d}\PY{p}{)}
+              \PY{k}{return} \PY{n}{df\PYZus{}poly}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{columns} \PY{o}{=} \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}scaled}\PY{o}{.}\PY{n}{columns}
+          \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}poly} \PY{o}{=} \PY{n}{add\PYZus{}poly\PYZus{}columns}\PY{p}{(}\PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}scaled}\PY{p}{,} \PY{n}{columns}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+          \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}poly}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:}            hour      year  holiday      temp     atemp       hum  windspeed  \textbackslash{}
+          15762  1.697960  0.981668        0  0.244746  0.248650  0.479123  -0.722744   
+          4213  -0.046370 -1.017656        0  1.385026  1.131807 -1.538014   0.226382   
+          14301 -1.354618  0.981668        0  0.866717  0.866569  0.266793  -1.553427   
+          15900 -0.918535  0.981668        0 -0.999197 -0.988352  0.903783  -0.485860   
+          14320  1.407239  0.981668        0  1.074041  1.043200 -0.157867  -0.248181   
+          
+                 Feb  Mar  Apr     {\ldots}         temp\^{}2   atemp\^{}2     hum\^{}2  windspeed\^{}2  \textbackslash{}
+          15762    0    0    0     {\ldots}       0.059900  0.061827  0.229559     0.522359   
+          4213     0    0    0     {\ldots}       1.918298  1.280987  2.365486     0.051249   
+          14301    0    0    0     {\ldots}       0.751198  0.750941  0.071178     2.413137   
+          15900    0    0    0     {\ldots}       0.998394  0.976840  0.816825     0.236060   
+          14320    0    0    0     {\ldots}       1.153564  1.088266  0.024922     0.061594   
+          
+                   hour\^{}3    year\^{}3    temp\^{}3   atemp\^{}3     hum\^{}3  windspeed\^{}3  
+          15762  4.895337  0.946006  0.014660  0.015373  0.109987    -0.377532  
+          4213  -0.000100 -1.053908  2.656894  1.449831 -3.638150     0.011602  
+          14301 -2.485710  0.946006  0.651076  0.650742  0.018990    -3.748633  
+          15900 -0.774975  0.946006 -0.997593 -0.965462  0.738233    -0.114692  
+          14320  2.786783  0.946006  1.238974  1.135279 -0.003934    -0.015286  
+          
+          [5 rows x 42 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}poly}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['hour', 'year', 'holiday', 'temp', 'atemp', 'hum', 'windspeed', 'Feb',
+       'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec',
+       'spring', 'summer', 'fall', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+       'Cloudy', 'Snow', 'Storm', 'hour\^{}2', 'year\^{}2', 'temp\^{}2', 'atemp\^{}2',
+       'hum\^{}2', 'windspeed\^{}2', 'hour\^{}3', 'year\^{}3', 'temp\^{}3', 'atemp\^{}3',
+       'hum\^{}3', 'windspeed\^{}3'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \textbf{1.5} Write code to add interaction terms to the model.
+Specifically, we want interactions between the continuous predictors
+(\texttt{temp},\texttt{atemp}, \texttt{hum},\texttt{windspeed}) and the
+month and weekday dummies (\texttt{Feb}, \texttt{Mar}...\texttt{Dec},
+\texttt{Mon}, \texttt{Tue}, ... \texttt{Sat}). That means you SHOULD
+build \texttt{atemp*Feb} and \texttt{hum*Mon} and so on, but NOT
+\texttt{Feb*Mar} and NOT \texttt{Feb*Tue}. The interaction terms should
+always be a continuous feature times a month dummy or a continuous
+feature times a weekday dummy.
+
+Encapsulate this process as a function with appropriate inputs and
+outputs, and test your code by adding interaction terms to
+\texttt{practice\_X\_train\_poly} and show its column names and
+\texttt{.head()}**
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{k}{def} \PY{n+nf}{add\PYZus{}interaction\PYZus{}terms}\PY{p}{(}\PY{n}{df\PYZus{}to\PYZus{}add\PYZus{}interactions}\PY{p}{,}
+                                    \PY{n}{df\PYZus{}original}\PY{p}{,}
+                                    \PY{n}{continuous\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{atemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{windspeed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{n}{dummy\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Apr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{May}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jul}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nov}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fri}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    df\PYZus{}to\PYZus{}add\PYZus{}interactions pandas DataFrame: dataframe to add interaction terms}
+          \PY{l+s+sd}{    df\PYZus{}original pandas DataFrame: dataframe holding the terms to form interactions with}
+          \PY{l+s+sd}{    continuous\PYZus{}columns list(str): names of continuous predictors}
+          \PY{l+s+sd}{    dummy\PYZus{}columns: names of dummy predictors (0/1)}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{df\PYZus{}interact} \PY{o}{=} \PY{n}{df\PYZus{}to\PYZus{}add\PYZus{}interactions}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              \PY{k}{for} \PY{n}{cont\PYZus{}col} \PY{o+ow}{in} \PY{n}{continuous\PYZus{}columns}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{other\PYZus{}col} \PY{o+ow}{in} \PY{n}{dummy\PYZus{}columns}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{cont\PYZus{}col} \PY{o+ow}{is} \PY{o+ow}{not} \PY{n}{other\PYZus{}col}\PY{p}{:}
+                          \PY{n}{df\PYZus{}interact}\PY{p}{[}\PY{n}{cont\PYZus{}col}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{other\PYZus{}col}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}original}\PY{p}{[}\PY{n}{cont\PYZus{}col}\PY{p}{]}\PY{o}{*}\PY{n}{df\PYZus{}original}\PY{p}{[}\PY{n}{other\PYZus{}col}\PY{p}{]}
+              \PY{k}{return} \PY{n}{df\PYZus{}interact}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}interact} \PY{o}{=} \PY{n}{add\PYZus{}interaction\PYZus{}terms}\PY{p}{(}\PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}poly}\PY{p}{,} \PY{n}{practice\PYZus{}X\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n+nb}{print}\PY{p}{(}\PY{p}{[}\PY{n}{c} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}interact}\PY{o}{.}\PY{n}{columns}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['hour', 'year', 'holiday', 'temp', 'atemp', 'hum', 'windspeed', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec', 'spring', 'summer', 'fall', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Cloudy', 'Snow', 'Storm', 'hour\^{}2', 'year\^{}2', 'temp\^{}2', 'atemp\^{}2', 'hum\^{}2', 'windspeed\^{}2', 'hour\^{}3', 'year\^{}3', 'temp\^{}3', 'atemp\^{}3', 'hum\^{}3', 'windspeed\^{}3', 'temp*Feb', 'temp*Mar', 'temp*Apr', 'temp*May', 'temp*Jun', 'temp*Jul', 'temp*Aug', 'temp*Sept', 'temp*Oct', 'temp*Nov', 'temp*Dec', 'temp*Mon', 'temp*Tue', 'temp*Wed', 'temp*Thu', 'temp*Fri', 'temp*Sat', 'atemp*Feb', 'atemp*Mar', 'atemp*Apr', 'atemp*May', 'atemp*Jun', 'atemp*Jul', 'atemp*Aug', 'atemp*Sept', 'atemp*Oct', 'atemp*Nov', 'atemp*Dec', 'atemp*Mon', 'atemp*Tue', 'atemp*Wed', 'atemp*Thu', 'atemp*Fri', 'atemp*Sat', 'hum*Feb', 'hum*Mar', 'hum*Apr', 'hum*May', 'hum*Jun', 'hum*Jul', 'hum*Aug', 'hum*Sept', 'hum*Oct', 'hum*Nov', 'hum*Dec', 'hum*Mon', 'hum*Tue', 'hum*Wed', 'hum*Thu', 'hum*Fri', 'hum*Sat', 'windspeed*Feb', 'windspeed*Mar', 'windspeed*Apr', 'windspeed*May', 'windspeed*Jun', 'windspeed*Jul', 'windspeed*Aug', 'windspeed*Sept', 'windspeed*Oct', 'windspeed*Nov', 'windspeed*Dec', 'windspeed*Mon', 'windspeed*Tue', 'windspeed*Wed', 'windspeed*Thu', 'windspeed*Fri', 'windspeed*Sat']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{practice\PYZus{}X\PYZus{}train\PYZus{}interact}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:}            hour      year  holiday      temp     atemp       hum  windspeed  \textbackslash{}
+          15762  1.697960  0.981668        0  0.244746  0.248650  0.479123  -0.722744   
+          4213  -0.046370 -1.017656        0  1.385026  1.131807 -1.538014   0.226382   
+          14301 -1.354618  0.981668        0  0.866717  0.866569  0.266793  -1.553427   
+          15900 -0.918535  0.981668        0 -0.999197 -0.988352  0.903783  -0.485860   
+          14320  1.407239  0.981668        0  1.074041  1.043200 -0.157867  -0.248181   
+          
+                 Feb  Mar  Apr      {\ldots}        windspeed*Sept  windspeed*Oct  \textbackslash{}
+          15762    0    0    0      {\ldots}                   0.0         0.1045   
+          4213     0    0    0      {\ldots}                   0.0         0.0000   
+          14301    0    0    0      {\ldots}                   0.0         0.0000   
+          15900    0    0    0      {\ldots}                   0.0         0.1343   
+          14320    0    0    0      {\ldots}                   0.0         0.0000   
+          
+                 windspeed*Nov  windspeed*Dec  windspeed*Mon  windspeed*Tue  \textbackslash{}
+          15762            0.0            0.0            0.0         0.1045   
+          4213             0.0            0.0            0.0         0.0000   
+          14301            0.0            0.0            0.0         0.0000   
+          15900            0.0            0.0            0.0         0.0000   
+          14320            0.0            0.0            0.0         0.0000   
+          
+                 windspeed*Wed  windspeed*Thu  windspeed*Fri  windspeed*Sat  
+          15762         0.0000            0.0         0.0000            0.0  
+          4213          0.2239            0.0         0.0000            0.0  
+          14301         0.0000            0.0         0.0000            0.0  
+          15900         0.1343            0.0         0.0000            0.0  
+          14320         0.0000            0.0         0.1642            0.0  
+          
+          [5 rows x 110 columns]
+\end{Verbatim}
+            
+    \textbf{1.6} Combine all your code so far into a function that takes in
+\texttt{bikes\_train}, \texttt{bikes\_val}, the names of columns for
+polynomial, the target column, the columns to be dropped and produces
+computation-ready design matrices \texttt{X\_train} and \texttt{X\_val}
+and responses \texttt{y\_train} and \texttt{y\_val}. Your final function
+should build correct, scaled design matrices with the stated interaction
+terms and any polynomial degree.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}design\PYZus{}mats}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,} \PY{n}{val\PYZus{}df}\PY{p}{,}  \PY{n}{degree}\PY{p}{,} 
+                             \PY{n}{columns\PYZus{}forpoly}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{atemp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{windspeed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                             \PY{n}{target\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                             \PY{n}{bad\PYZus{}columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{registered}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{casual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workingday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dteday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} add code here }
+             
+             \PY{c+c1}{\PYZsh{} get predictors and target}
+             \PY{n}{x\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{get\PYZus{}X\PYZus{}and\PYZus{}y}\PY{p}{(}\PY{n}{val\PYZus{}df}\PY{p}{,} \PY{n}{target\PYZus{}col}\PY{p}{,} \PY{n}{bad\PYZus{}columns}\PY{p}{)}
+             \PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{get\PYZus{}X\PYZus{}and\PYZus{}y}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,} \PY{n}{target\PYZus{}col}\PY{p}{,} \PY{n}{bad\PYZus{}columns}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} scale columns}
+             \PY{n}{x\PYZus{}val\PYZus{}scaled} \PY{o}{=} \PY{n}{scale\PYZus{}col}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{columns\PYZus{}forpoly}\PY{p}{)}
+             \PY{n}{x\PYZus{}train\PYZus{}scaled} \PY{o}{=} \PY{n}{scale\PYZus{}col}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{columns\PYZus{}forpoly}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} add polynomial terms}
+             \PY{n}{x\PYZus{}val\PYZus{}poly} \PY{o}{=} \PY{n}{add\PYZus{}poly\PYZus{}columns}\PY{p}{(}\PY{n}{x\PYZus{}val\PYZus{}scaled}\PY{p}{,} \PY{n}{columns\PYZus{}forpoly}\PY{p}{,} \PY{n}{degree}\PY{p}{)}
+             \PY{n}{x\PYZus{}train\PYZus{}poly} \PY{o}{=} \PY{n}{add\PYZus{}poly\PYZus{}columns}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}scaled}\PY{p}{,} \PY{n}{columns\PYZus{}forpoly}\PY{p}{,} \PY{n}{degree}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} add interaction terms}
+             \PY{n}{x\PYZus{}val\PYZus{}interact} \PY{o}{=} \PY{n}{add\PYZus{}interaction\PYZus{}terms}\PY{p}{(}\PY{n}{x\PYZus{}val\PYZus{}poly}\PY{p}{,} \PY{n}{x\PYZus{}val}\PY{p}{)}
+             \PY{n}{x\PYZus{}train\PYZus{}interact} \PY{o}{=} \PY{n}{add\PYZus{}interaction\PYZus{}terms}\PY{p}{(}\PY{n}{x\PYZus{}train\PYZus{}poly}\PY{p}{,} \PY{n}{x\PYZus{}train}\PY{p}{)}
+             
+             \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{x\PYZus{}train\PYZus{}interact}\PY{p}{,} \PY{n}{x\PYZus{}val\PYZus{}interact}
+             
+             \PY{k}{return} \PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{x\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{get\PYZus{}design\PYZus{}mats}\PY{p}{(}\PY{n}{bikes\PYZus{}train}\PY{p}{,} \PY{n}{bikes\PYZus{}val}\PY{p}{,}  \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} Index(['hour', 'year', 'holiday', 'temp', 'atemp', 'hum', 'windspeed', 'Feb',
+                'Mar', 'Apr',
+                {\ldots}
+                'windspeed*Sept', 'windspeed*Oct', 'windspeed*Nov', 'windspeed*Dec',
+                'windspeed*Mon', 'windspeed*Tue', 'windspeed*Wed', 'windspeed*Thu',
+                'windspeed*Fri', 'windspeed*Sat'],
+               dtype='object', length=108)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} Index(['counts'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{x\PYZus{}val}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} Index(['hour', 'year', 'holiday', 'temp', 'atemp', 'hum', 'windspeed', 'Feb',
+                'Mar', 'Apr',
+                {\ldots}
+                'windspeed*Sept', 'windspeed*Oct', 'windspeed*Nov', 'windspeed*Dec',
+                'windspeed*Mon', 'windspeed*Tue', 'windspeed*Wed', 'windspeed*Thu',
+                'windspeed*Fri', 'windspeed*Sat'],
+               dtype='object', length=108)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} Index(['counts'], dtype='object')
+\end{Verbatim}
+            
+     Question 2 {[}20pts{]}: Regularization via Ridge 
+
+    \textbf{2.1} For each degree in 1 through 8:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Build the training design matrix and validation design matrix using
+  the function \texttt{get\_design\_mats} with polynomial terms up
+  through the specified degree.
+\item
+  Fit a regression model to the training data.
+\item
+  Report the model's score on the validation data.
+\end{enumerate}
+
+\textbf{2.2} Discuss patterns you see in the results from 2.1. Which
+model would you select, and why?
+
+\textbf{2.3} Let's try regularizing our models via ridge regression.
+Build a table showing the validation set \(R^2\) of polynomial models
+with degree from 1-8, regularized at the levels
+\(\lambda = (.01, .05, .1,.5, 1, 5, 10, 50, 100)\). Do not perform cross
+validation at this point, simply report performance on the single
+validation set.
+
+\textbf{2.4} Find the best-scoring degree and regularization
+combination.
+
+\textbf{2.5} It's time to see how well our selected model will do on
+future data. Read in the provided test dataset, do any required
+formatting, and report the best model's \(R^2\) score. How does it
+compare to the validation set score that made us choose this model?
+
+\textbf{2.6} Why do you think our model's test score was quite a bit
+worse than its validation score? Does the test set simply contain harder
+examples, or is something else going on?
+
+    \subsubsection{Solutions}\label{solutions}
+
+    \textbf{2.1} For each degree in 1 through 8:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Build the training design matrix and validation design matrix using
+  the function \texttt{get\_design\_mats} with polynomial terms up
+  through the specified degree.
+\item
+  Fit a regression model to the training data.
+\item
+  Report the model's score on the validation data.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{n}{scores} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{k}{for} \PY{n}{deg} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{:}
+              \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{get\PYZus{}design\PYZus{}mats}\PY{p}{(}\PY{n}{bikes\PYZus{}train}\PY{p}{,} \PY{n}{bikes\PYZus{}val}\PY{p}{,}  \PY{n}{deg}\PY{p}{)}
+              \PY{n}{model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+              \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deg }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{deg}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{scores}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2 score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Best Performing Model is at Degree 8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}124}]:} Text(0.5,1,'The Best Performing Model is at Degree 8')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{2.2} Discuss patterns you see in the results from 2.1. Which
+model would you select, and why?**
+
+    \emph{your answer here}
+
+I would select the degree 8 model although, since this is the highest
+degree we tested, I would explore higher degree polynomials.
+
+    \textbf{2.3} Let's try regularizing our models via ridge regression.
+Build a table showing the validation set \(R^2\) of polynomial models
+with degree from 1-8, regularized at the levels
+\(\lambda = (.01, .05, .1,.5, 1, 5, 10, 50, 100)\). Do not perform cross
+validation at this point, simply report performance on the single
+validation set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{n}{scores} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{n}{reg\PYZus{}param} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.05}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+          \PY{k}{for} \PY{n}{deg} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{:}
+              \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deg\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{deg}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{reg} \PY{o+ow}{in} \PY{n}{reg\PYZus{}param}\PY{p}{:}
+                  \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{get\PYZus{}design\PYZus{}mats}\PY{p}{(}\PY{n}{bikes\PYZus{}train}\PY{p}{,} \PY{n}{bikes\PYZus{}val}\PY{p}{,}  \PY{n}{deg}\PY{p}{)}
+                  \PY{n}{model} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{n}{reg}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                  \PY{n}{scores}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deg\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{deg}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,}\PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}
+          \PY{n}{scores\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scores}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{reg\PYZus{}param\PYZus{}str} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{r}\PY{p}{)} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{reg\PYZus{}param}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+          \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{scores\PYZus{}df}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{reg\PYZus{}param\PYZus{}str}\PY{p}{,} \PY{n}{scores\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{n}{col}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{regularization parameter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZca{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best model performance is achieved with }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ degree = 8 and regularization parameter = .1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}184}]:} Text(0.5,1,'The best model performance is achieved with \textbackslash{}n degree = 8 and regularization parameter = .1')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{2.4} Find the best-scoring degree and regularization
+combination.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{n}{best\PYZus{}degree} \PY{o}{=} \PY{k+kc}{None}
+          \PY{n}{best\PYZus{}reg} \PY{o}{=} \PY{k+kc}{None}
+          \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{scores\PYZus{}df}\PY{p}{:}
+              \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{param} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{reg\PYZus{}param}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{scores\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{[}\PY{n}{idx}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{best\PYZus{}score}\PY{p}{:}
+                      \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{n}{scores\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{[}\PY{n}{idx}\PY{p}{]}
+                      \PY{n}{best\PYZus{}degree} \PY{o}{=} \PY{n}{col}
+                      \PY{n}{best\PYZus{}reg} \PY{o}{=} \PY{n}{param}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The best degree is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ and the best regularization parameter is }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}degree}\PY{p}{,} \PY{n}{best\PYZus{}reg}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The best degree is deg\_8 and the best regularization parameter is 0.1
+
+    \end{Verbatim}
+
+    \textbf{2.5} It's time to see how well our selected model will do on
+future data. Read in the provided test dataset
+\texttt{data/bikes\_test.csv}, do any required formatting, and report
+the best model's \(R^2\) score. How does it compare to the validation
+set score that made us choose this model?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{bikes\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./data/bikes\PYZus{}test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{bikes\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:}            dteday  hour  year  holiday  workingday  temp   atemp   hum  \textbackslash{}
+         7955   2011-12-03     3     0        0           0  0.24  0.2424  0.70   
+         113    2011-01-05    22     0        0           1  0.18  0.1970  0.55   
+         701    2011-02-01    14     0        0           1  0.22  0.2576  0.80   
+         12221  2012-05-29    10     1        0           1  0.74  0.6970  0.70   
+         7255   2011-11-03    22     0        0           1  0.40  0.4091  0.82   
+         
+                windspeed  casual  {\ldots}    Mon  Tue  Wed  Thu  Fri  Sat  Cloudy  Snow  \textbackslash{}
+         7955      0.1343       4  {\ldots}      0    0    0    0    0    1       0     0   
+         113       0.1343       1  {\ldots}      0    0    1    0    0    0       0     0   
+         701       0.0896       5  {\ldots}      0    1    0    0    0    0       1     0   
+         12221     0.2985      67  {\ldots}      0    1    0    0    0    0       0     0   
+         7255      0.0000      21  {\ldots}      0    0    0    1    0    0       0     0   
+         
+                Storm  month  
+         7955       0     12  
+         113        0      1  
+         701        0      2  
+         12221      0      5  
+         7255       0     11  
+         
+         [5 rows x 36 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} \PY{c+c1}{\PYZsh{} set best params}
+          \PY{n}{best\PYZus{}deg} \PY{o}{=} \PY{l+m+mi}{8}
+          \PY{n}{best\PYZus{}reg\PYZus{}param} \PY{o}{=} \PY{l+m+mf}{0.01}
+          
+          \PY{c+c1}{\PYZsh{} fit model}
+          \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{get\PYZus{}design\PYZus{}mats}\PY{p}{(}\PY{n}{bikes\PYZus{}main}\PY{p}{,} \PY{n}{bikes\PYZus{}test}\PY{p}{,} \PY{n}{best\PYZus{}deg}\PY{p}{)}
+          \PY{n}{model} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{n}{best\PYZus{}reg\PYZus{}param}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}evaluate best model}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{R\PYZca{}2 score for best performing model on test set: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+R\^{}2 score for best performing model on test set:  0.5896762331536515
+
+    \end{Verbatim}
+
+    \textbf{2.6} Why do you think our model's test score was quite a bit
+worse than its validation score? Does the test set simply contain harder
+examples, or is something else going on?
+
+    \emph{your answer here} While in this case the test score was higher
+than the validation score, there are two reasons why this might occur.
+
+\begin{itemize}
+\item
+  \textbf{Regression to the Mean:} The performance of any model is a
+  combination of true predictive ability and luck. For every additional
+  model you evaluate, the chance that the best performing model was
+  chosen based on luck rather skill increases. While this model still
+  may be the best, it's performance may regress towards the mean when
+  evaluated on the test set.
+\item
+  \textbf{Distributional Shift Between Train and Test Data:} If the
+  distribution of our test data does not match the distribution of our
+  training and validation data, then model performance may suffer. This
+  could happen if the test data was generated over a different time
+  period, was not a representative sample of the dataset, or by chance.
+\item
+  \textbf{Overfitting the validation data} If you evaluate a number of
+  models on the training set, you will begin to fit to the individual
+  data points in the validation set and not the underlying data
+  generating distribution. This will lead to a "best" model with high
+  variance that may not perform well in general.
+\end{itemize}
+
+     Question 3 {[}20pts{]}: Comparing Ridge, Lasso, and OLS 
+
+    \textbf{3.1} Build a dataset with polynomial degree 1 and fit an OLS
+model, a Ridge model, and a Lasso model. Use \texttt{RidgeCV} and
+\texttt{LassoCV} to select the best regularization level from among
+\texttt{(.1,.5,1,5,10,50,100)}.
+
+Note: On the lasso model, you will need to increase \texttt{max\_iter}
+to 100,000 for the optimization to converge.
+
+\textbf{3.2} Plot histograms of the coefficients found by each of OLS,
+ridge, and lasso. What trends do you see in the magnitude of the
+coefficients?
+
+\textbf{3.3} The plots above show the overall distribution of
+coefficient values in each model, but do not show how each model treats
+individual coefficients. Build a plot which cleanly presents, for each
+feature in the data, 1) The coefficient assigned by OLS, 2) the
+coefficient assigned by ridge, and 3) the coefficient assigned by lasso.
+
+\textbf{Hint: Bar plots are a possible choice, but you are not required
+to use them}
+
+\textbf{Hint: use \texttt{xticks} to label coefficients with their
+feature names}
+
+\textbf{3.4} What trends do you see in the plot above? How do the three
+approaches handle the correlated pair \texttt{temp} and \texttt{atemp}?
+
+    \subsubsection{Solutions}\label{solutions}
+
+    \textbf{3.1} Build a dataset with polynomial degree 1 and fit an OLS
+model, a Ridge model, and a Lasso model. Use \texttt{RidgeCV} and
+\texttt{LassoCV} to select the best regularization level from among
+\texttt{(.1,.5,1,5,10,50,100)}.
+
+Note: On the lasso model, you will need to increase \texttt{max\_iter}
+to 100,000 for the optimization to converge.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{}your code here}
+         \PY{n}{reg\PYZus{}param} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}
+         \PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{get\PYZus{}design\PYZus{}mats}\PY{p}{(}\PY{n}{bikes\PYZus{}main}\PY{p}{,} \PY{n}{bikes\PYZus{}test}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{model\PYZus{}ols} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{model\PYZus{}ridge} \PY{o}{=} \PY{n}{RidgeCV}\PY{p}{(}\PY{n}{alphas} \PY{o}{=} \PY{n}{reg\PYZus{}param}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{model\PYZus{}lasso} \PY{o}{=} \PY{n}{LassoCV}\PY{p}{(}\PY{n}{alphas} \PY{o}{=} \PY{n}{reg\PYZus{}param}\PY{p}{,} \PY{n}{max\PYZus{}iter} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/joshfeldman/anaconda3/envs/py36/lib/python3.6/site-packages/sklearn/linear\_model/coordinate\_descent.py:1094: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n\_samples, ), for example using ravel().
+  y = column\_or\_1d(y, warn=True)
+
+    \end{Verbatim}
+
+    \textbf{3.2} Plot histograms of the coefficients found by each of OLS,
+ridge, and lasso. What trends do you see in the magnitude of the
+coefficients?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{model\PYZus{}ols}\PY{p}{,} \PY{n}{model\PYZus{}ridge}\PY{p}{,} \PY{n}{model\PYZus{}lasso}\PY{p}{]}
+         \PY{n}{model\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lasso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{model\PYZus{}ols}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{model\PYZus{}ridge}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{model\PYZus{}lasso}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lasso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficient Distribution for OLS, Ridge, Lasso Regressions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+m+mf}{1.01}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/joshfeldman/anaconda3/envs/py36/lib/python3.6/site-packages/matplotlib/figure.py:457: UserWarning: matplotlib is currently using a non-GUI backend, so cannot show the figure
+  "matplotlib is currently using a non-GUI backend, "
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \emph{your answer here}
+
+    Lasso and ridge both have a smaller range in their coefficient values
+when compared to OLS. Lasso has many more values equal to 0, while Ridge
+simply has smaller coefficient values.
+
+    \textbf{3.3} The plots above show the overall distribution of
+coefficient values in each model, but do not show how each model treats
+individual coefficients. Build a plot which cleanly presents, for each
+feature in the data, 1) The coefficient assigned by OLS, 2) the
+coefficient assigned by ridge, and 3) the coefficient assigned by lasso.
+
+\textbf{Hint: Bar plots are a possible choice, but you are not required
+to use them}
+
+\textbf{Hint: use \texttt{xticks} to label coefficients with their
+feature names}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{df\PYZus{}coefs} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{model\PYZus{}ols}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ridge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{model\PYZus{}ridge}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lasso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{model\PYZus{}lasso}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}coefs}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}
+         \PY{n}{non\PYZus{}interaction} \PY{o}{=} \PY{p}{[}\PY{n}{var\PYZus{}name} \PY{k}{for} \PY{n}{var\PYZus{}name} \PY{o+ow}{in} \PY{n}{df\PYZus{}coefs}\PY{o}{.}\PY{n}{index} \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{var\PYZus{}name}\PY{p}{]}
+         \PY{n}{coef\PYZus{}plt} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}coefs}
+                     \PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{non\PYZus{}interaction}\PY{p}{]}
+                     \PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ols}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coefficients for Non\PYZhy{}Interaction terms in }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{OLS, Ridge, and Lasso Linear Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+                          \PY{p}{)}
+                    \PY{p}{)}
+         \PY{n}{coef\PYZus{}plt}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficient value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{coef\PYZus{}plt}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficient name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{interaction} \PY{o}{=} \PY{p}{[}\PY{n}{var\PYZus{}name} \PY{k}{for} \PY{n}{var\PYZus{}name} \PY{o+ow}{in} \PY{n}{df\PYZus{}coefs}\PY{o}{.}\PY{n}{index} \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{var\PYZus{}name}\PY{p}{]}
+         \PY{n}{coef\PYZus{}plt} \PY{o}{=} \PY{p}{(}\PY{n}{df\PYZus{}coefs}
+                     \PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{interaction}\PY{p}{]}
+                     \PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{title} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coefficients for Interaction terms in }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{OLS, Ridge, and Lasso Linear Regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                           \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{)}
+                          \PY{p}{)}
+                    \PY{p}{)}
+         \PY{n}{coef\PYZus{}plt}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficient value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{coef\PYZus{}plt}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coefficient name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} Text(0,0.5,'coefficient name')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{3.4} What trends do you see in the plot above? How do the three
+approaches handle the correlated pair \texttt{temp} and \texttt{atemp}?
+
+    \emph{your answer here}
+
+There is greater variance in the coefficients for the OLS regression as
+opposed to ridge and lasso. A contributing factor to the stability of
+ridge and lasso is that these methods better handle collinearities in
+the data. While OLS sets \texttt{temp} to a large positive value and
+\texttt{atemp} to a large negative value, ridge and lasso both set
+\texttt{temp} to a relatively large positive value but restrict
+\texttt{atemp} to small positive values. This occurs because, by
+discounting large parameter values, ridge and lasso are forced to be
+more efficient with the information provided. If \texttt{temp} and
+\texttt{atemp} are collinear, these regularized models will make the
+parameters for one of these covariates small in order to avoid encoding
+redundant information (and in the case of lasso, even nullify the
+coeffecient altogether).
+
+     Question 4 {[}20 pts{]}: Reflection
+
+These problems are open-ended, and you are not expected to write more
+than 2-3 sentences. We are interested in seeing that you have thought
+about these issues; you will be graded on how well you justify your
+conclusions here, not on what you conclude.
+
+    \textbf{4.1} Reflect back on the \texttt{get\_design\_mats} function you
+built. Writing this function useful in your analysis? What issues might
+you have encountered if you copy/pasted the model-building code instead
+of tying it together in a function? Does a \texttt{get\_design\_mat}
+function seem wise in general, or are there better options?
+
+    \emph{your answer here}
+
+Implementing the get\_design matrix allows for greater reproducibility,
+clarity, and rhobustness: * If someone wanted to reproduce my
+preprocessing steps, they would only have to look at this function. * It
+also makes it clear to someone reading my code what preprocessing steps
+I took. * Finally, if I want to iterate on my preprocessing steps, it
+ensures that I am applying the same methods to my training, validation,
+and test sets. If we apply different preprocessing steps in training,
+validation, and testing, we may get innacurate results or errors.
+
+Implementing a \texttt{get\_design\_mat} function is wise in general.
+However, if we want to compare different preprocessing and modelling
+combinations, one might need to implement multiple preprocessing
+functions, which could be stored in a list or another more advanced data
+structure as needed. Additionally, if we wanted to encapsulate the
+preprocessing and model into a single data structure, one might want to
+implement a class.
+
+    \textbf{4.2} What are the costs and benefits of applying ridge/lasso
+regularization to an overfit OLS model, versus setting a specific degree
+of polynomial or forward selecting features for the model?
+
+    \emph{your answer here}
+
+\textbf{benefits:} * The benefit of using ridge/lasso regularization
+over setting a specific degree polynomial is that it doesn't require us
+to know the ideal degree beforehand, which might be difficult to
+discover.\\
+* The benefit of using ridge/lasso regularization over forward selection
+is that it regularizes all the freatures simultaneously, while foward
+selection does a greedy search * Lasso and ridge can handle the case
+when p \textgreater{} n * Ridge/Lasso might lead to more accurate
+predictions than forward selection because they can adjust the weights
+of the covariates instead of making a binary decision to include or not.
+This applies more to ridge than lasso since lasso tends to set
+coeffecients to 0.
+
+\textbf{costs:} * Lasso and ridge require you to specify a tuning
+parameter, which might be difficult and costly to discover due to the
+need to conduct cross validation for each candidate parameter.
+
+    \textbf{4.3} This pset posed a purely predictive goal: forecast
+ridership as accurately as possible. How important is interpretability
+in this context? Considering, e.g., your lasso and ridge models from
+Question 3, how would you react if the models predicted well, but the
+coefficient values didn't make sense once interpreted?
+
+    \emph{your answer here}
+
+Interpretability is still important, even if the goal is prediction. If
+our model encounters outliers with respect to our training data or if
+the data generating process changes over time, it must be either robust
+to these changes or we should be confident that we can confidently
+identify these moments. An interpretable model helps us ensure that our
+regression is not merely identifying patterns in the data, but actually
+learning a model of the world that - at the very least - doesn't
+completely contradict our own conceptions and theories. Furthermore, if
+we are operating in a high stakes situation where single errors have a
+high cost, an interpretable model may help a human operator catch
+mistakes in real time. Finally, interpretability may actually result in
+better models because we can more easily diagnose why our model makes
+incorrect predictions. We can use this to information to iterate and
+improve.
+
+If the model predicted well, but the coefficients didn't make sense, I
+would first look for colinearities in my data. Since it could be that
+the strange covariate being used for prediction is correlated with a
+covariate that makes more sense, the model might be using the strange
+covariate as a proxy for the expected covariate.
+
+Strange covariates could also be a warning sign that our model is not as
+good as our test set score suggests. I would check to make sure that
+there are no bugs in my code and, if possible, collect more data to test
+on.
+
+I would reflect on whether my data is an innacurate sample, because this
+might result in my conceptual model of the problem being different from
+the data generating process.
+
+Finally, if it seems like the strange covariate has genuine explanatory
+power, I might revise my conceptual model of the problem.
+
+    \textbf{4.4} Reflect back on our original goal of helping BikeShare
+predict what demand will be like in the week ahead, and thus how many
+bikes they can bring in for maintenance. In your view, did we accomplish
+this goal? If yes, which model would you put into production and why? If
+not, which model came closest, what other analyses might you conduct,
+and how likely do you think they are to work
+
+    \emph{your answer here}
+
+I do not think we accomplished the goal of building a predictive model
+we can be confident in.
+
+The model that came closest was the degree 8 ridge regression with a
+regularization parameter of 0.1.
+
+I am not confident in this model for three reasons:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Degree 8 was at the edge of our polynomial range, meaning that degree
+  9+ terms would likely give better performance. I would explore higher
+  degree terms.
+\item
+  Evaluating our model based on R\^{}2 is flawed because (a) if there is
+  a small minority of instances that our model performs poorly on, it
+  will be hidden in the average (b) using squared error means that our
+  evaluation might be too sensitive to outliers. I would cluster my data
+  and see if there are certain groups for which performance is
+  particularly low and I would also consider other loss functions.
+\item
+  Since we performed many validation tests, the chance that our best
+  performing model simply was lucky is high. I would evaluate the models
+  using cross validation to reduce this effect.
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
