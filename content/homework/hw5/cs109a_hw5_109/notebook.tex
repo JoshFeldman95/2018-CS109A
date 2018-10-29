@@ -1,0 +1,1275 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cs109a\_hw5\_109}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{ CS109A Introduction to Data
+Science:}\label{cs109a-introduction-to-data-science}
+
+\subsection{Homework 5: Logistic Regression, High Dimensionality and
+PCA}\label{homework-5-logistic-regression-high-dimensionality-and-pca}
+
+\textbf{Harvard University} \textbf{Fall 2018} \textbf{Instructors}:
+Pavlos Protopapas, Kevin Rader
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}RUN THIS CELL }
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+        \PY{n}{styles} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/Harvard\PYZhy{}IACS/2018\PYZhy{}CS109A/master/content/styles/cs109.css}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{text}
+        \PY{n}{HTML}\PY{p}{(}\PY{n}{styles}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} <IPython.core.display.HTML object>
+\end{Verbatim}
+            
+    \subsubsection{INSTRUCTIONS}\label{instructions}
+
+\begin{itemize}
+\tightlist
+\item
+  To submit your assignment follow the instructions given in canvas
+  https://canvas.harvard.edu/courses/42693/pages/homework-policies-and-submission-instructions.
+\item
+  Restart the kernel and run the whole notebook again before you submit.
+\item
+  If you submit individually and you have worked with someone, please
+  include the name of your {[}one{]} partner below.
+\item
+  As much as possible, try and stick to the hints and functions we
+  import at the top of the homework, as those are the ideas and tools
+  the class supports and is aiming to teach. And if a problem specifies
+  a particular library you're required to use that library, and possibly
+  others from the import list.
+\end{itemize}
+
+    Names of people you have worked with goes here:
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{OLS}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegressionCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{LinearDiscriminantAnalysis}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{QuadraticDiscriminantAnalysis}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+        
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{special} \PY{k}{import} \PY{n}{gamma}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+\end{Verbatim}
+
+
+    Cancer Classification from Gene Expressions
+
+In this problem, we will build a classification model to distinguish
+between two related classes of cancer, acute lymphoblastic leukemia
+(ALL) and acute myeloid leukemia (AML), using gene expression
+measurements. The data set is provided in the file
+\texttt{data/dataset\_hw5\_1.csv}. Each row in this file corresponds to
+a tumor tissue sample from a patient with one of the two forms of
+Leukemia. The first column contains the cancer type, with 0 indicating
+the ALL class and 1 indicating the AML class. Columns 2-7130 contain
+expression levels of 7129 genes recorded from each tissue sample.
+
+In the following questions, we will use linear and logistic regression
+to build classification models for this data set. We will also use
+Principal Components Analysis (PCA) to reduce its dimensions.
+
+     Question 1 {[}25 pts{]}: Data Exploration
+
+First step is to split the observations into an approximate 50-50
+train-test split. Below is some code to do this for you (we want to make
+sure everyone has the same splits).
+
+\textbf{1.1} Take a peek at your training set: you should notice the
+severe differences in the measurements from one gene to the next (some
+are negative, some hover around zero, and some are well into the
+thousands). To account for these differences in scale and variability,
+normalize each predictor to vary between 0 and 1.
+
+\textbf{1.2} Notice that the resulting training set contains more
+predictors than observations. Do you foresee a problem in fitting a
+classification model to such a data set? Explain in 3 or fewer
+sentences.
+
+\textbf{1.3} Let's explore a few of the genes and see how well they
+discriminate between cancer classes. Create a single figure with four
+subplots arranged in a 2x2 grid. Consider the following four genes:
+\texttt{D29963\_at}, \texttt{M23161\_at}, \texttt{hum\_alu\_at}, and
+\texttt{AFFX-PheX-5\_at}. For each gene overlay two histograms of the
+gene expression values on one of the subplots, one histogram for each
+cancer type. Does it appear that any of these genes discriminate between
+the two classes well? How are you able to tell?
+
+\textbf{1.4} Since our data has dimensions that are not easily
+visualizable, we want to reduce the dimensionality of the data to make
+it easier to visualize. Using PCA, find the top two principal components
+for the gene expression data. Generate a scatter plot using these
+principal components, highlighting the two cancer types in different
+colors and different markers ('x' vs 'o', for example). How well do the
+top two principal components discriminate between the two classes? How
+much of the variance within the predictor set do these two principal
+components explain?
+
+\textbf{1.5} Plot the cumulative variance explained in the feature set
+as a function of the number of PCA-components (up to the first 50
+components). Do you feel 2 components is enough, and if not, how many
+components would you choose to consider? Justify your choice in 3 or
+fewer sentences. Finally, determine how many components are needed to
+explain at least 90\% of the variability in the feature set.
+
+    \paragraph{Answers:}\label{answers}
+
+First step is to split the observations into an approximate 50-50
+train-test split. Below is some code to do this for you (we want to make
+sure everyone has the same splits).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{9002}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/dataset\PYZus{}hw5\PYZus{}1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{msk} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.5}
+        \PY{n}{data\PYZus{}train} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{msk}\PY{p}{]}
+        \PY{n}{data\PYZus{}test} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{msk}\PY{p}{]}
+\end{Verbatim}
+
+
+    \textbf{1.1:} Take a peek at your training set...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} your code here}
+        \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}     Cancer\_type  AFFX-BioB-5\_at  AFFX-BioB-M\_at  AFFX-BioB-3\_at  \textbackslash{}
+        0             0            -214            -153             -58   
+        2             0            -106            -125             -76   
+        5             0             -67             -93              84   
+        9             0            -476            -213             -18   
+        10            0             -81            -150            -119   
+        
+            AFFX-BioC-5\_at  AFFX-BioC-3\_at  AFFX-BioDn-5\_at  AFFX-BioDn-3\_at  \textbackslash{}
+        0               88            -295             -558              199   
+        2              168            -230             -284                4   
+        5               25            -179             -323             -135   
+        9              301            -403             -394              -42   
+        10              78            -152             -340              -36   
+        
+            AFFX-CreX-5\_at  AFFX-CreX-3\_at     {\ldots}       U48730\_at  U58516\_at  \textbackslash{}
+        0             -176             252     {\ldots}             185        511   
+        2             -122              70     {\ldots}             156        649   
+        5             -127              -2     {\ldots}              48        224   
+        9             -144              98     {\ldots}             241       1214   
+        10            -141              96     {\ldots}             186        573   
+        
+            U73738\_at  X06956\_at  X16699\_at  X83863\_at  Z17240\_at  L49218\_f\_at  \textbackslash{}
+        0        -125        389        -37        793        329           36   
+        2          57        504        -26        250        314           14   
+        5          60        194        -10        291         41            8   
+        9         127        255         50       1701       1108           61   
+        10        -57        694        -19        636        205           17   
+        
+            M71243\_f\_at  Z78285\_f\_at  
+        0           191          -37  
+        2            56          -25  
+        5            -2          -80  
+        9           525          -83  
+        10          127          -13  
+        
+        [5 rows x 7130 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{n}{copy}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{)}
+        \PY{k}{def} \PY{n+nf}{scale}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{scaler}\PY{p}{)}\PY{p}{:}
+            \PY{n}{scaled\PYZus{}data} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+            \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scaled\PYZus{}data}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+        \PY{n}{data\PYZus{}train} \PY{o}{=} \PY{n}{scale}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{,}\PY{n}{scaler}\PY{p}{)}
+        \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}    Cancer\_type  AFFX-BioB-5\_at  AFFX-BioB-M\_at  AFFX-BioB-3\_at  \textbackslash{}
+        0          0.0        0.466192        0.739726        0.255814   
+        1          0.0        0.658363        0.794521        0.213953   
+        2          0.0        0.727758        0.857143        0.586047   
+        3          0.0        0.000000        0.622309        0.348837   
+        4          0.0        0.702847        0.745597        0.113953   
+        
+           AFFX-BioC-5\_at  AFFX-BioC-3\_at  AFFX-BioDn-5\_at  AFFX-BioDn-3\_at  \textbackslash{}
+        0        0.246154        0.433190         0.240418         0.880427   
+        1        0.421978        0.573276         0.717770         0.741637   
+        2        0.107692        0.683190         0.649826         0.642705   
+        3        0.714286        0.200431         0.526132         0.708897   
+        4        0.224176        0.741379         0.620209         0.713167   
+        
+           AFFX-CreX-5\_at  AFFX-CreX-3\_at     {\ldots}       U48730\_at  U58516\_at  \textbackslash{}
+        0        0.625850        0.928074     {\ldots}        0.385445   0.268542   
+        1        0.748299        0.505800     {\ldots}        0.307278   0.356777   
+        2        0.736961        0.338747     {\ldots}        0.016173   0.085038   
+        3        0.698413        0.570766     {\ldots}        0.536388   0.718031   
+        4        0.705215        0.566125     {\ldots}        0.388140   0.308184   
+        
+           U73738\_at  X06956\_at  X16699\_at  X83863\_at  Z17240\_at  L49218\_f\_at  \textbackslash{}
+        0   0.398126   0.161897   0.677778   0.323241   0.322609     0.751381   
+        1   0.824356   0.206978   0.718519   0.081478   0.309565     0.629834   
+        2   0.831382   0.085457   0.777778   0.099733   0.072174     0.596685   
+        3   0.988290   0.109369   1.000000   0.727516   1.000000     0.889503   
+        4   0.557377   0.281458   0.744444   0.253339   0.214783     0.646409   
+        
+           M71243\_f\_at  Z78285\_f\_at  
+        0     0.069457     0.381720  
+        1     0.027597     0.446237  
+        2     0.009612     0.150538  
+        3     0.173023     0.134409  
+        4     0.049612     0.510753  
+        
+        [5 rows x 7130 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{data\PYZus{}test} \PY{o}{=} \PY{n}{scale}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{,}\PY{n}{scaler}\PY{p}{)}
+        \PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    Cancer\_type  AFFX-BioB-5\_at  AFFX-BioB-M\_at  AFFX-BioB-3\_at  \textbackslash{}
+        0          0.0        0.606762        0.816047        1.006977   
+        1          0.0        0.718861        0.757339        0.944186   
+        2          0.0        0.112100        0.530333        0.406977   
+        3          0.0        0.683274        0.806262        0.318605   
+        4          0.0        0.656584        0.898239        0.097674   
+        
+           AFFX-BioC-5\_at  AFFX-BioC-3\_at  AFFX-BioDn-5\_at  AFFX-BioDn-3\_at  \textbackslash{}
+        0        0.079121        0.165948         0.193380         0.851246   
+        1        0.173626        0.209052         0.252613         0.832028   
+        2        0.048352       -0.096983        -0.163763         0.543060   
+        3        0.432967        0.566810         0.817073         0.703915   
+        4        0.380220        0.627155         0.717770         0.620641   
+        
+           AFFX-CreX-5\_at  AFFX-CreX-3\_at     {\ldots}       U48730\_at  U58516\_at  \textbackslash{}
+        0        0.451247        0.457077     {\ldots}        0.533693   0.475703   
+        1        0.619048        0.635731     {\ldots}       -0.032345   0.465473   
+        2       -0.024943        0.505800     {\ldots}        0.665768   0.343990   
+        3        0.884354        0.373550     {\ldots}        0.460916   0.314578   
+        4        0.605442        0.345708     {\ldots}        0.210243   0.403453   
+        
+           U73738\_at  X06956\_at  X16699\_at  X83863\_at  Z17240\_at  L49218\_f\_at  \textbackslash{}
+        0   1.201405   0.077617   0.407407   0.249332   0.184348     0.276243   
+        1   0.274005   0.068601   0.748148   0.477738   0.455652     0.607735   
+        2   0.489461   0.127793   0.900000   0.770703   0.424348     0.878453   
+        3   0.697892   0.217170   0.670370   0.280053   0.299130     0.685083   
+        4   0.737705   0.139553   0.796296   0.056990   0.087826     0.723757   
+        
+           M71243\_f\_at  Z78285\_f\_at  
+        0     0.049302     0.091398  
+        1     0.124651     0.354839  
+        2     0.252403     0.688172  
+        3     0.033178     0.521505  
+        4     0.046202     0.483871  
+        
+        [5 rows x 7130 columns]
+\end{Verbatim}
+            
+    \emph{your answer here}
+
+    \textbf{1.2:} Notice that the resulting training set contains...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} your code here}
+        \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} (40, 7130)
+\end{Verbatim}
+            
+    \emph{your answer here}
+
+When you have more predictors than samples, the classification problem
+becomes under specified. You will be able to arbitrarily draw a
+hyperplane that seperates your data, meaning that we are necessarily
+fitting to our data rather than our data generating distribution. Hence,
+we will over fit our model.
+
+    \textbf{1.3:} Let's explore a few of the genes...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} your code here}
+        \PY{n}{genes} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M23161\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hum\PYZus{}alu\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AFFX\PYZhy{}PheX\PYZhy{}5\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharex} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{sharey} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+        \PY{n}{genes\PYZus{}idx} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{axes}\PY{p}{:}
+            \PY{k}{for} \PY{n}{ax} \PY{o+ow}{in} \PY{n}{row}\PY{p}{:}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{genes}\PY{p}{[}\PY{n}{genes\PYZus{}idx}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                        \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} 
+                        \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{genes}\PY{p}{[}\PY{n}{genes\PYZus{}idx}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} 
+                        \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AML}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gene expression (scaled to [0,1])}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{genes}\PY{p}{[}\PY{n}{genes\PYZus{}idx}\PY{p}{]}\PY{p}{)}
+                \PY{n}{genes\PYZus{}idx} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}figheight}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Distribution of Gene Expressions for the Two Cancer Types}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/joshfeldman/anaconda3/envs/py36/lib/python3.6/site-packages/matplotlib/figure.py:457: UserWarning: matplotlib is currently using a non-GUI backend, so cannot show the figure
+  "matplotlib is currently using a non-GUI backend, "
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \emph{your answer here}
+
+None of these genes discriminate well between the two classes because
+the histograms have significant overlap.
+
+    \textbf{1.4:} Since our data has dimensions that are not easily
+visualizable...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} your code here}
+        \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cancer\PYZus{}type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{data\PYZus{}train\PYZus{}2d} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cancer\PYZus{}type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{data\PYZus{}train\PYZus{}2d} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data\PYZus{}train\PYZus{}2d}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{p}{[}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{o}{.}\PY{n}{Cancer\PYZus{}type} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{data\PYZus{}train\PYZus{}2d}\PY{p}{[}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{o}{.}\PY{n}{Cancer\PYZus{}type} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{p}{[}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{o}{.}\PY{n}{Cancer\PYZus{}type} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{data\PYZus{}train\PYZus{}2d}\PY{p}{[}\PY{n}{data\PYZus{}train\PYZus{}2d}\PY{o}{.}\PY{n}{Cancer\PYZus{}type} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AML}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer Type by First Two Principal Components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Text(0,0.5,'pca 2')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 0.2731782945208866
+\end{Verbatim}
+            
+    \emph{your answer here}
+
+The first two principal components do not discrimenate well between the
+two cancers. Although there seem to be some regions that are all blue or
+all orange, there is still significant overlap. All hope is not lost,
+however, because the first two principal components only explain 27\% of
+the variance in our data
+
+    \textbf{1.5}: Plot the cumulative variance explained in the feature
+set...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{components\PYZus{}}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} (2, 7129)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cancer\PYZus{}type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cumulative }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f variance explained}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cumulative Proportion of Variance Explained for }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Each Additional Principal Component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{o}{.}\PY{l+m+mi}{90}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 28
+\end{Verbatim}
+            
+    \emph{your answer here}
+
+Two components is not enough because, from our plot above, it doesn't
+discriminate between the two classes and they only explian 27\% of the
+variance.
+
+I would arbitrarily choose 10 data principal components, which explain
+\textasciitilde{}60\% of the variance in our data.
+
+28 principle components are required to explain 90\% of the variance.
+
+     Question 2 {[}25 pts{]}: Linear Regression vs. Logistic Regression
+
+In class we discussed how to use both linear regression and logistic
+regression for classification. For this question, you will work with a
+single gene predictor, \texttt{D29963\_at}, to explore these two
+methods.
+
+\textbf{2.1} Fit a simple linear regression model to the training set
+using the single gene predictor \texttt{D29963\_at} to predict cancer
+type and plot the histogram of predicted values. We could interpret the
+scores predicted by the regression model for a patient as an estimate of
+the probability that the patient has \texttt{Cancer\_type}=1 (AML). Is
+there a problem with this interpretation?
+
+\textbf{2.2} The fitted linear regression model can be converted to a
+classification model (i.e. a model that predicts one of two binary
+classes 0 or 1) by classifying patients with predicted score greater
+than 0.5 into \texttt{Cancer\_type}=1, and the others into the
+\texttt{Cancer\_type}=0. Evaluate the classification accuracy of the
+obtained classification model on both the training and test sets.
+
+\textbf{2.3} Next, fit a simple logistic regression model to the
+training set. How do the training and test classification accuracies of
+this model compare with the linear regression model? If there are no
+substantial differences, why do you think this happens?
+
+Remember, you need to set the regularization parameter for sklearn's
+logistic regression function to be a very large value in order to
+\textbf{not} regularize (use 'C=100000').
+
+\textbf{2.4} Create a figure with 4 items displayed on the same plot: -
+the quantitative response from the linear regression model as a function
+of the gene predictor \texttt{D29963\_at}. - the predicted probabilities
+of the logistic regression model as a function of the gene predictor
+\texttt{D29963\_at}.\\
+- the true binary response for the test set points for both models in
+the same plot. - a horizontal line at \(y=0.5\).
+
+Based on these plots, does one of the models appear better suited for
+binary classification than the other? Explain in 3 sentences or fewer.
+
+    \paragraph{Answers:}\label{answers}
+
+\textbf{2.1:} Fit a simple linear regression model to the training set
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{lin\PYZus{}model} \PY{o}{=} \PY{n}{OLS}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cancer\PYZus{}0\PYZus{}lin\PYZus{}reg} \PY{o}{=} \PY{n}{lin\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cancer\PYZus{}1\PYZus{}lin\PYZus{}reg} \PY{o}{=} \PY{n}{lin\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cancer\PYZus{}0\PYZus{}lin\PYZus{}reg}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{l+m+mf}{1.25}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ALL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cancer\PYZus{}1\PYZus{}lin\PYZus{}reg}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{l+m+mf}{1.25}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AML}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{regression prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution of predicted }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{probability}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ of cancer type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} Text(0.5,1,'Distribution of predicted "probability" of cancer type')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \emph{your answer here} The problem with interpreting the predicted
+values as probabilities is that they are not limited to the {[}0,1{]}
+range
+
+    \textbf{2.2:} The fitted linear regression model can be converted to a
+classification model...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{predictions\PYZus{}train} \PY{o}{=} \PY{n}{lin\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{classifications\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{p} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{predictions\PYZus{}train}\PY{p}{]}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{classifications\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training data accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}acc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training data accuracy: 0.8
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{predictions\PYZus{}test} \PY{o}{=} \PY{n}{lin\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{classifications\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{p} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{predictions\PYZus{}test}\PY{p}{]}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{classifications\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing data accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}acc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Testing data accuracy: 0.7575757575757576
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+    \textbf{2.3:} Next, fit a simple logistic regression model to the
+training set...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{log\PYZus{}model} \PY{o}{=} \PY{p}{(}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{)}
+                      \PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                     \PY{p}{)}
+         \PY{c+c1}{\PYZsh{} make predictions}
+         \PY{n}{train\PYZus{}pred\PYZus{}log} \PY{o}{=} \PY{n}{log\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}pred\PYZus{}log} \PY{o}{=} \PY{n}{log\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} calculate accuracy}
+         \PY{n}{train\PYZus{}acc\PYZus{}log} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{train\PYZus{}pred\PYZus{}log}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training data accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}acc\PYZus{}log}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc\PYZus{}log} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{test\PYZus{}pred\PYZus{}log}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data accuracy:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}acc\PYZus{}log}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training data accuracy: 0.8
+Test data accuracy: 0.7575757575757576
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+The linear regression and the logistic regression give the same results.
+This is because the linear regression and the logistic regression cross
+the 0.5 probability threshold at approximately the same gene expression
+value (see plot below). \textbf{IS THIS RIGHT?}
+
+    \textbf{2.4} Create a figure with 4 items displayed on the same plot: -
+the quantitative response from the linear regression model as a function
+of the gene predictor \texttt{D29963\_at}. - the predicted probabilities
+of the logistic regression model as a function of the gene predictor
+\texttt{D29963\_at}.\\
+- the true binary response for the test set points for both models in
+the same plot. - a horizontal line at \(y=0.5\).
+
+Based on these plots, does one of the models appear better suited for
+binary classification than the other? Explain in 3 sentences or fewer.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{gene\PYZus{}expression} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.25}\PY{p}{,}\PY{l+m+mf}{1.25}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gene\PYZus{}expression}\PY{p}{,} 
+                  \PY{n}{lin\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{gene\PYZus{}expression}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{gene\PYZus{}expression}\PY{p}{,} 
+                  \PY{n}{log\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{gene\PYZus{}expression}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logistic regression}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D29963\PYZus{}at}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test data}\PY{l+s+s1}{\PYZsq{}}
+                    \PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classification threshold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{D29963\PYZus{}at Expression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{probability}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ of AML}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Linear and Logistic Regression Classification}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} <matplotlib.legend.Legend at 0x1c25c717b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Logistic regression is better suited to binary classification because it
+only predicts values between 0 and 1, which are valid probabilities.
+Additionally, linear regression is less robust to extreme values. As we
+can see in the plot, the sample with a high D29963\_at expression
+appears to decrease the slope of the linear regression, whereas linear
+regression simply predicts a value very close to 1.
+
+    \emph{your answer here}
+
+ Question 3 {[}30pts{]}: Multiple Logistic Regression
+
+\textbf{3.1} Next, fit a multiple logistic regression model with all the
+gene predictors from the data set. How does the classification accuracy
+of this model compare with the models fitted in question 2 with a single
+gene (on both the training and test sets)?
+
+\textbf{3.2} How many of the coefficients estimated by this multiple
+logistic regression in the previous part are significantly different
+from zero at a \emph{significance level of 5\%}? Use the same value of
+C=100000 as before.
+
+\textbf{Hint:} To answer this question, use \emph{bootstrapping} with
+1000 boostrap samples/iterations.
+
+\textbf{3.3} Use the \texttt{visualize\_prob} function provided below
+(or any other visualization) to visualize the probabilties predicted by
+the fitted multiple logistic regression model on both the training and
+test data sets. The function creates a visualization that places the
+data points on a vertical line based on the predicted probabilities,
+with the different cancer classes shown in different colors, and with
+the 0.5 threshold highlighted using a dotted horizontal line. Is there a
+difference in the spread of probabilities in the training and test
+plots? Are there data points for which the predicted probability is
+close to 0.5? If so, what can you say about these points?
+
+\textbf{3.4} Open question: Comment on the classification accuracy of
+the train and test sets. Given the results above how would you assess
+the generalization capacity of your trained model? What other tests or
+approaches would you suggest to better guard against the false sense of
+security on the accuracy of the model as a whole.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}  visualize\PYZus{}prob}
+         \PY{c+c1}{\PYZsh{} A function to visualize the probabilities predicted by a Logistic Regression model}
+         \PY{c+c1}{\PYZsh{} Input: }
+         \PY{c+c1}{\PYZsh{}      model (Logistic regression model)}
+         \PY{c+c1}{\PYZsh{}      x (n x d array of predictors in training data)}
+         \PY{c+c1}{\PYZsh{}      y (n x 1 array of response variable vals in training data: 0 or 1)}
+         \PY{c+c1}{\PYZsh{}      ax (an axis object to generate the plot)}
+         
+         \PY{k}{def} \PY{n+nf}{visualize\PYZus{}prob}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{ax}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Use the model to predict probabilities for x}
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Separate the predictions on the label 1 and label 0 points}
+             \PY{n}{ypos} \PY{o}{=} \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{yneg} \PY{o}{=} \PY{n}{y\PYZus{}pred}\PY{p}{[}\PY{n}{y}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Count the number of label 1 and label 0 points}
+             \PY{n}{npos} \PY{o}{=} \PY{n}{ypos}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{nneg} \PY{o}{=} \PY{n}{yneg}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} Plot the probabilities on a vertical line at x = 0, }
+             \PY{c+c1}{\PYZsh{} with the positive points in blue and negative points in red}
+             \PY{n}{pos\PYZus{}handle} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{npos}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{ypos}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer Type 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{neg\PYZus{}handle} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{nneg}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{yneg}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer Type 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Line to mark prob 0.5}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Add y\PYZhy{}label and legend, do not display x\PYZhy{}axis, set y\PYZhy{}axis limit}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability of AML class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xaxis}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}visible}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Answers:}\label{answers}
+
+\textbf{3.1:} Next, fit a multiple logistic regression model with all
+the gene predictors...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{multiple\PYZus{}log\PYZus{}model} \PY{o}{=} \PY{p}{(}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{)}
+                               \PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{)}
+                              \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{train\PYZus{}prob} \PY{o}{=} \PY{n}{multiple\PYZus{}log\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{train\PYZus{}class} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{p} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{train\PYZus{}prob}\PY{p}{]}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{train\PYZus{}class}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{training accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{train\PYZus{}acc}\PY{p}{)}
+         
+         \PY{n}{test\PYZus{}prob} \PY{o}{=} \PY{n}{multiple\PYZus{}log\PYZus{}model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}class} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1} \PY{k}{if} \PY{n}{p} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5} \PY{k}{else} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{test\PYZus{}prob}\PY{p}{]}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{test\PYZus{}class}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}acc}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+training accuracy: 1.0
+test accuracy: 1.0
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+This model performs better on both the training and the test sets
+
+    \textbf{3.2:} How many of the coefficients estimated by this multiple
+logistic regression...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} bootstrapping code}
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{bootstrap\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{replace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{]}
+         \PY{n}{fit\PYZus{}log\PYZus{}model} \PY{o}{=} \PY{k}{lambda} \PY{n}{df}\PY{p}{:} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{)}
+         \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{fit\PYZus{}log\PYZus{}model}\PY{p}{(}\PY{n}{df}\PY{p}{)} \PY{k}{for} \PY{n}{df} \PY{o+ow}{in} \PY{n}{bootstrap\PYZus{}data}\PY{p}{]}
+         \PY{n}{coefs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{m}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{models}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{prop\PYZus{}greater\PYZus{}than\PYZus{}0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{coefs} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{/}\PY{n}{coefs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{prop\PYZus{}less\PYZus{}than\PYZus{}0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{coefs} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{/}\PY{n}{coefs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{significant\PYZus{}params} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{prop\PYZus{}greater\PYZus{}than\PYZus{}0} \PY{o}{\PYZgt{}} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{prop\PYZus{}less\PYZus{}than\PYZus{}0} \PY{o}{\PYZgt{}} \PY{o}{.}\PY{l+m+mi}{95}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ parameters out of }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ parameters are significantly different from 0}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{significant\PYZus{}params}\PY{p}{,} \PY{n}{coefs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2389 parameters out of 7129 parameters are significantly different from 0
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+    \textbf{3.3:} Use the visualize\_prob function provided below ...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Plot classification model \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{visualize\PYZus{}prob}\PY{p}{(}\PY{n}{multiple\PYZus{}log\PYZus{}model}\PY{p}{,} \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{visualize\PYZus{}prob}\PY{p}{(}\PY{n}{multiple\PYZus{}log\PYZus{}model}\PY{p}{,} \PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \emph{your answer here}
+
+\textbf{Is there a difference in the spread of probabilities in the
+training and test plots?}
+
+In the training plots, the probabilities are either 0 or 1. In the test
+plot, the probabilities have higher variance.
+
+\textbf{Are there data points for which the predicted probability is
+close to 0.5? If so, what can you say about these points?}
+
+In the test set, there are some points that are close to p = 0.5. We
+should be less confident in the classification made by our model in
+these cases.
+
+    \textbf{3.4:} Open question: Comment on the classification accuracy...
+
+    \emph{your answer here}
+
+\textbf{Comment on the classification accuracy of the train and test
+sets.}
+
+The model classifies the training and test sets perfectly.
+
+\textbf{Given the results above how would you assess the generalization
+capacity of your trained model?}
+
+Though the model has perfect accuracy on the test set, we see that the
+model isn't very certain about some of the test set predictions. This
+means that we potentially just got lucky that these points ended up on
+the correct side of the 0.5 classification threshold.
+
+\textbf{What other tests or approaches would you suggest to better guard
+against the false sense of security on the accuracy of the model as a
+whole.}
+
+There are three things we can do:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Evaluate our model using the ROC instead of accuracy. The ROC
+  evaluates the model based on the predicted probabilities rather than
+  the predicted classes, which means that uncertain predictions will be
+  taken into account
+\item
+  Collect more data for our test set to get a better sense of the
+  performance of our test set
+\item
+  Conduct cross-validation to get a better estimate of the performance
+  of our model.
+\end{enumerate}
+
+     Question 4 {[}20 pts{]}: PCR: Principal Components Regression
+
+High dimensional problems can lead to problematic behavior in model
+estimation (and make prediction on a test set worse), thus we often want
+to try to reduce the dimensionality of our problems. A reasonable
+approach to reduce the dimensionality of the data is to use PCA and fit
+a logistic regression model on the smallest set of principal components
+that explain at least 90\% of the variance in the predictors.
+
+\textbf{4.1:} Fit two separate Logistic Regression models using
+principal components as the predictors: (1) with the number of
+components you selected from problem 1.5 and (2) with the number of
+components that explain at least 90\% of the variability in the feature
+set. How do the classification accuracy values on both the training and
+tests sets compare with the models fit in question 3?
+
+\textbf{4.2:} Use the code provided in question 3 (or your choice of
+visualization) to visualize the probabilities predicted by the fitted
+models in the previous part on both the training and test sets. How does
+the spread of probabilities in these plots compare to those for the
+model in question 3.2? If the lower dimensional representation yields
+comparable predictive power, what advantage does the lower dimensional
+representation provide?
+
+    \paragraph{Answers:}\label{answers}
+
+\textbf{4.1:} Fit two separate Logistic Regression models...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{c+c1}{\PYZsh{} your code here}
+          \PY{n}{components\PYZus{}60} \PY{o}{=} \PY{l+m+mi}{10}
+          
+          \PY{n}{data\PYZus{}train\PYZus{}60} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{n}{components\PYZus{}60}\PY{p}{]}
+          \PY{n}{log\PYZus{}reg\PYZus{}60} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}60}\PY{p}{,}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{train\PYZus{}pred\PYZus{}60} \PY{o}{=} \PY{n}{log\PYZus{}reg\PYZus{}60}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}60}\PY{p}{)}
+          \PY{n}{train\PYZus{}acc\PYZus{}60} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}pred\PYZus{}60}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy on principle components explaining 60}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f variance:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}acc\PYZus{}60}\PY{p}{)}
+          
+          \PY{n}{data\PYZus{}test\PYZus{}60} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{n}{components\PYZus{}60}\PY{p}{]}
+          \PY{n}{test\PYZus{}pred\PYZus{}60} \PY{o}{=} \PY{n}{log\PYZus{}reg\PYZus{}60}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}test\PYZus{}60}\PY{p}{)}
+          \PY{n}{test\PYZus{}acc\PYZus{}60} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}pred\PYZus{}60}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test accuracy on principle components explaining 60}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f variance:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}acc\PYZus{}60}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+training accuracy on principle components explaining 60\% of variance: 1.0
+test accuracy on principle components explaining 60\% of variance: 0.8787878787878788
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{components\PYZus{}90} \PY{o}{=} \PY{l+m+mi}{28}
+         
+         \PY{n}{data\PYZus{}train\PYZus{}90} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{n}{components\PYZus{}90}\PY{p}{]}
+         \PY{n}{log\PYZus{}reg\PYZus{}90} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C} \PY{o}{=} \PY{l+m+mi}{100000}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}90}\PY{p}{,}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{train\PYZus{}pred\PYZus{}90} \PY{o}{=} \PY{n}{log\PYZus{}reg\PYZus{}90}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}train\PYZus{}90}\PY{p}{)}
+         \PY{n}{train\PYZus{}acc\PYZus{}90} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{train\PYZus{}pred\PYZus{}90}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy on principle components explaining 90}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f variance:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}acc\PYZus{}90}\PY{p}{)}
+         
+         \PY{n}{data\PYZus{}test\PYZus{}90} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{n}{components\PYZus{}90}\PY{p}{]}
+         \PY{n}{test\PYZus{}pred\PYZus{}90} \PY{o}{=} \PY{n}{log\PYZus{}reg\PYZus{}90}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data\PYZus{}test\PYZus{}90}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc\PYZus{}90} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{data\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cancer\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}pred\PYZus{}90}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test accuracy on principle components explaining 90}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f variance:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{test\PYZus{}acc\PYZus{}90}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+training accuracy on principle components explaining 90\% of variance: 1.0
+test accuracy on principle components explaining 90\% of variance: 0.9696969696969697
+
+    \end{Verbatim}
+
+    \emph{your answer here}
+
+The test set accuracy is better when we use more principal components.
+
+    \textbf{4.2:} Use the code provided in question 3...
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{} your code here}
+         \PY{n}{visualize\PYZus{}prob}\PY{p}{(}\PY{n}{log\PYZus{}reg\PYZus{}90}\PY{p}{,} \PY{n}{data\PYZus{}train\PYZus{}90}\PY{p}{,} \PY{n}{data\PYZus{}train}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{visualize\PYZus{}prob}\PY{p}{(}\PY{n}{log\PYZus{}reg\PYZus{}90}\PY{p}{,} \PY{n}{data\PYZus{}test\PYZus{}90}\PY{p}{,} \PY{n}{data\PYZus{}test}\PY{o}{.}\PY{n}{Cancer\PYZus{}type}\PY{p}{,} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \emph{your answer here}
+
+\textbf{How does the spread of probabilities in these plots compare to
+those for the model in question 3.2?}
+
+These probabilities are almost identical to those in question 3.2.
+
+\textbf{If the lower dimensional representation yields comparable
+predictive power, what advantage does the lower dimensional
+representation provide?}
+
+The lower dimensional representation provides greater interpretability
+because we can look at the significant coefficients in the model and
+then examine the principal componenets corresponding to these important
+coeffecients. Hopefully, the combination of the original features that
+make up these principal components are significant in the context of our
+problem.
+
+Additionally, the principal componenets are chosen to reduce the
+collinearities in our dataset, meaning that the covariance and standard
+error of our coefficients will be lower. This means we can more easily
+identify significant coefficients.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
